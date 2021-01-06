@@ -10,19 +10,23 @@ def call(){
     pipeline {
         agent any
 
-        parameters { choice(name: 'TOOL', choices: ['gradle', 'maven'], description: '') }
+        parameters { 
+            choice(name: 'TOOL', choices: ['gradle', 'maven'], description: 'Selecciona herramienta') 
+            string(name: 'stage', defaultValue: '', description: 'Selecciona stage a ejecutar')
+        }
         
         stages {
             stage('Pipeline') {
                 steps {
                     script{
+                        figlet params.TOOL
 
                         env.STAGE
 
                         if (params.TOOL == 'gradle'){
-                            gradle.call()
+                            gradle.call(params.stage)
                         } else {
-                            maven.call()
+                            maven.call(params.stage)
                         }
 
                     }
