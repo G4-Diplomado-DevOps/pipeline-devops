@@ -12,7 +12,7 @@ def isValidStage(String stage_pipeline, String stage_param) {
         return true
     }
     
-    if(stages_to_validate.contains(stage)){
+    if(stages_to_validate.contains(stage_pipeline)){
         println "Se inició el pipeline con parámetro stages [${stage_param}], Se inicia stage [${stage_pipeline}]"
         return true
     }
