@@ -11,7 +11,7 @@ def call(){
         agent any
 
         parameters { 
-            choice(name: 'TOOL', choices: ['gradle', 'maven'], description: 'Selecciona herramienta') 
+            choice(name: 'TOOL', choices: ['maven'], description: 'Selecciona herramienta') 
             string(name: 'stage', defaultValue: '', description: 'Selecciona stage a ejecutar')
         }
         

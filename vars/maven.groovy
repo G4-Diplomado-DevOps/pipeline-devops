@@ -80,7 +80,7 @@ def ciFlow(stage_param){
 def cdFlow(stage_param){
 
     def validator = new Validator()
-    
+
     if(validator.isValidStage('downloadNexus', stage_param)){
         stage('downloadNexus') {
             env.STAGE = STAGE_NAME
