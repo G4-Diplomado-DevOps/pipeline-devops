@@ -20,13 +20,13 @@ def call(){
                 steps {
                     script{
                         figlet params.TOOL
-
+                        
                         env.STAGE
 
                         if (params.TOOL == 'gradle'){
-                            gradle.call(params.stage)
+                            gradle.call(params.stage, env.BRANCH_NAME)
                         } else {
-                            maven.call(params.stage)
+                            maven.call(params.stage, env.BRANCH_NAME)
                         }
 
                     }

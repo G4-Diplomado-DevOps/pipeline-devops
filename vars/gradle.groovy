@@ -5,9 +5,13 @@ import pipeline.utils.*
 	ejecucion.call()
 */
 
-def call(stage_param){
+def call(stage_param, branch_name){
     
     def validator = new Validator()
+
+    flow_name = validator.getNameFlow(branch_name)
+
+    figlet flow_name
 
     if(validator.isValidStage('build & test', stage_param)){
         stage('build & test'){
