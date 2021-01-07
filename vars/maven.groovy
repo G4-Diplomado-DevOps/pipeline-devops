@@ -30,6 +30,8 @@ def call(stage_param, branch_name){
 // Flujo CI
 def ciFlow(stage_param){
 
+    def validator = new Validator()
+
     if(validator.isValidStage('compile', stage_param)){
         stage('compile') {
             env.STAGE = STAGE_NAME
@@ -77,6 +79,8 @@ def ciFlow(stage_param){
 // Flujo CD
 def cdFlow(stage_param){
 
+    def validator = new Validator()
+    
     if(validator.isValidStage('downloadNexus', stage_param)){
         stage('downloadNexus') {
             env.STAGE = STAGE_NAME
