@@ -69,7 +69,7 @@ def ciFlow(stage_param){
     if(validator.isValidStage('nexusCI', stage_param)){ 
         stage('nexusCI') {
             env.STAGE = STAGE_NAME
-            nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'laboratorio-grupo-4', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: 'jar', filePath: '/Users/procco/personal/usach/Modulo3/repositorios/ejemplo-maven/build/DevOpsUsach2020-0.0.1.jar']], mavenCoordinate: [artifactId: 'DevOpsUsach2020', groupId: 'com.devopsusach2020', packaging: 'jar', version: '0.0.1']]] 
+            nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'laboratorio-grupo-4', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: 'jar', filePath: './build/DevOpsUsach2020-0.0.1.jar']], mavenCoordinate: [artifactId: 'DevOpsUsach2020', groupId: 'com.devopsusach2020', packaging: 'jar', version: '0.0.1']]] 
 
         }
     }
