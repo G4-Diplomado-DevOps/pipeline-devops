@@ -84,7 +84,7 @@ def cdFlow(stage_param){
     if(validator.isValidStage('downloadNexus', stage_param)){
         stage('downloadNexus') {
             env.STAGE = STAGE_NAME
-            sh "curl -X GET -u devops:devops4 http://34.229.88.5:8081/repository/laboratorio-grupo-4/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"
+            sh "curl -X GET -u admin:devops4 http://34.229.88.5:8081/repository/laboratorio-grupo-4/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"
 
         }
     }
