@@ -23,7 +23,7 @@ def isValidStage(String stage_pipeline, String stage_param) {
 }
 
 def getNameFlow(branch_name){
-    if(branch_name.matches("(.*)feature(.*)") || branch_name == "(.*)develop"){
+    if(branch_name.matches("(.*)feature(.*)") || branch_name.matches("(.*)develop")){
         return "Integracion Continua"
     }else{
         if(branch_name.matches("(.*)release(.*)")){
