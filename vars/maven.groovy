@@ -69,7 +69,7 @@ def ciFlow(stage_param){
     if(validator.isValidStage('nexusCI', stage_param)){ 
         stage('nexusCI') {
             env.STAGE = STAGE_NAME
-            nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'taller-10-nexus', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: 'jar', filePath: '/Users/procco/personal/usach/Modulo3/repositorios/ejemplo-maven/build/DevOpsUsach2020-0.0.1.jar']], mavenCoordinate: [artifactId: 'DevOpsUsach2020', groupId: 'com.devopsusach2020', packaging: 'jar', version: '0.0.1']]] 
+            nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'laboratorio-grupo-4', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: 'jar', filePath: '/Users/procco/personal/usach/Modulo3/repositorios/ejemplo-maven/build/DevOpsUsach2020-0.0.1.jar']], mavenCoordinate: [artifactId: 'DevOpsUsach2020', groupId: 'com.devopsusach2020', packaging: 'jar', version: '0.0.1']]] 
 
         }
     }
@@ -84,7 +84,7 @@ def cdFlow(stage_param){
     if(validator.isValidStage('downloadNexus', stage_param)){
         stage('downloadNexus') {
             env.STAGE = STAGE_NAME
-            sh "curl -X GET -u admin:procco2020 http://bf9c05ea07fd.ngrok.io/repository/taller-10-nexus/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"
+            sh "curl -X GET -u admin:procco2020 http://34.229.88.5:8081/repository/laboratorio-grupo-4/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"
 
         }
     }
@@ -106,7 +106,7 @@ def cdFlow(stage_param){
 
     stage('nexusCD') {
         env.STAGE = STAGE_NAME
-        nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'taller-10-nexus', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: 'jar', filePath: '/Users/procco/personal/usach/Modulo3/repositorios/ejemplo-maven/build/DevOpsUsach2020-0.0.1.jar']], mavenCoordinate: [artifactId: 'DevOpsUsach2020', groupId: 'com.devopsusach2020', packaging: 'jar', version: '1.0.0']]] 
+        nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'laboratorio-grupo-4', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: 'jar', filePath: '/Users/procco/personal/usach/Modulo3/repositorios/ejemplo-maven/build/DevOpsUsach2020-0.0.1.jar']], mavenCoordinate: [artifactId: 'DevOpsUsach2020', groupId: 'com.devopsusach2020', packaging: 'jar', version: '1.0.0']]] 
     
     }
 
