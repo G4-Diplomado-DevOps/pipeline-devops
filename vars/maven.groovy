@@ -60,7 +60,7 @@ def ciFlow(stage_param){
         stage('sonar') {
             env.STAGE = STAGE_NAME
             withSonarQubeEnv(installationName: 'sonar_server') {
-                sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar_scanner'
+                sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
             }
 
         }
