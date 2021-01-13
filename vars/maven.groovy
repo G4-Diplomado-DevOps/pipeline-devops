@@ -61,7 +61,7 @@ def ciFlow(stage_param){
             env.STAGE = STAGE_NAME
             def scannerHome = tool 'sonar_scanner';
             withSonarQubeEnv('sonar_server') {
-                sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build"    
+                sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=ms-iclab -Dsonar.java.binaries=build"    
             }
         }
     }
