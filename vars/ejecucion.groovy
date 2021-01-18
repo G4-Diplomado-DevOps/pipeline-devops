@@ -11,19 +11,15 @@ def call(){
         agent any
 
         parameters {
-            choice (
-                name: 'TOOL',
-                choices:
-                    [
-                        'gradle',
-                        'maven'
-                    ],
-                description: 'Selecciona herramienta'
-            ) 
             string (
                 name: 'stage',
                 defaultValue: '',
                 description: 'Selecciona stage a ejecutar'
+            )
+            string (
+                name: 'releaseVersion',
+                defaultValue: '',
+                description: 'Ingresar version formato: {major}-{minor}-{patch}, ejemplo: 0-0-0'
             )
         }
         
@@ -31,13 +27,12 @@ def call(){
             stage('Pipeline') {
                 steps {
                     script{
+
                         figlet params.TOOL
 
-                        if (params.TOOL == 'gradle'){
-                            gradle.call()
-                        } else {
-                            maven.call()
-                        }
+                        env.RELEASE_VERSION = params.releaseVersion
+                        
+                        gradle.call()
 
                     }
                 }
