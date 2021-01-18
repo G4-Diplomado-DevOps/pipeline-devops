@@ -32,7 +32,14 @@ def call(){
 
                         env.RELEASE_VERSION = params.releaseVersion
                         
-                        gradle.call()
+                        if(env.GIT_BRANCH=='develop' || env.GIT_BRANCH.contains('feature'))
+                        {
+                            gradleCI.call();
+                        } else if(env.GIT_BRANCH.contains('release')) {
+                            gradleCD.call();
+                        } else {
+                            // Do Nothing.
+                        }
 
                     }
                 }
