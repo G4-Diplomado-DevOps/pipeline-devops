@@ -29,14 +29,14 @@ def call(){
                 }
 
                 // Si pasa el try el step fue exitoso
-                sucess = true
+                success = true
 
             } catch(Exception e) {
                 echo "Error en stage "+STAGE_NAME
             }
 
         }
-        println "DEBUB: sucess:" + sucess
+        println "DEBUG: compile-> success:" + success
     }
 
     if(util.validateStage('unitTest') && success)
@@ -59,6 +59,7 @@ def call(){
                 echo "Error en stage "+STAGE_NAME
             }
         }
+        println "DEBUG: unitTest-> success:" + success
     }
 
     if(util.validateStage('jar') && success)
