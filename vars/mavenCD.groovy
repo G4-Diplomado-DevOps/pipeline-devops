@@ -80,7 +80,7 @@ def createRelease(){
 				echo "no existe master, verificar branch"
 			}
         }else{
-            echo "la rama $(env.GIT_BRANCH) no corresponde como rama release, no se puede hacer delivery"
+            echo "la rama ${env.GIT_BRANCH} no corresponde como rama release, no se puede hacer delivery"
         }
 	}
 
