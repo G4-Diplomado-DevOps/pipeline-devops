@@ -15,9 +15,9 @@ def call(){
     figlet so
 
     // En el primer step no se verifica el boolean success ya que es el primer step
-    if(util.validateStage('build') || util.validateStage('test'))
+    if(util.validateStage('compile'))
     {
-        stage('build & test') {
+        stage('compile') {
 
             env.STAGE = STAGE_NAME
 
@@ -32,10 +32,31 @@ def call(){
                 sucess = true
 
             } catch(Exception e) {
-                echo "Error en stage build: "+e
+                echo "Error en stage "+STAGE_NAME
             }
-            
 
+        }
+    }
+
+    if(util.validateStage('unitTest') && success)
+    {
+        stage('unitTest') {
+
+            env.STAGE = STAGE_NAME
+
+            try {
+                if (isUnix()) {
+                    sh "nohup bash gradlew bootRun &"
+                } else {
+                    bat 'start /B gradle bootRun'
+                }
+
+                // Si pasa el try el step fue exitoso
+                success = true
+
+            } catch(Exception e) {
+                echo "Error en stage "+STAGE_NAME
+            }
         }
     }
 
@@ -63,61 +84,14 @@ def call(){
                 success = true
 
             } catch(Exception e) {
-                echo "Error en stage sonar: "+e
+                echo "Error en stage "+STAGE_NAME
             }
         }
     }
 
-    if(util.validateStage('run') && success)
+    if(util.validateStage('nexusUpload') && success)
     {
-        stage('run') {
-
-            env.STAGE = STAGE_NAME
-
-            try {
-                if (isUnix()) {
-                    sh "nohup bash gradlew bootRun &"
-                } else {
-                    bat 'start /B gradle bootRun'
-                }
-
-                // Si pasa el try el step fue exitoso
-                success = true
-
-                sleep 20
-
-            } catch(Exception e) {
-                echo "Error en stage run: "+e
-            }
-        }
-    }
-
-    if(util.validateStage('rest') && success)
-    {
-        stage('rest') {
-
-            env.STAGE = STAGE_NAME
-
-            try {
-                if (isUnix()) {
-                    sh 'curl -X GET "http://localhost:8082/rest/mscovid/test?msg=testing"'
-                } else {
-                    bat 'curl -X GET "http://localhost:8082/rest/mscovid/test?msg=testing"'
-                }
-
-                // Si pasa el try el step fue exitoso
-                success = true
-
-            } catch(Exception e) {
-                echo "Error en stage rest: "+e
-            }
-
-        }
-    }
-
-    if(util.validateStage('nexus') && success)
-    {
-        stage('nexus') {
+        stage('nexusUpload') {
 
             env.STAGE = STAGE_NAME
 
@@ -147,7 +121,7 @@ def call(){
                 success = true
 
             } catch (Exception e) {
-                echo "Error en stage nexus: "+e
+                echo "Error en stage "+STAGE_NAME
             }
         }
     }
@@ -156,20 +130,25 @@ def call(){
         stage('gitCreateRelease') {
             env.STAGE = STAGE_NAME
 
-            def git = new GitMethods()
+            try {
+                def git = new GitMethods()
 
-            // version = "1-1-2"
+                // version = "1-1-2"
 
-            if (git.checkIfBranchExists('release-v' + env.RELEASE_VERSION)) {
-                println "INFO: La rama existe"
-                git.deleteBranch('release-v' + env.RELEASE_VERSION) 
-                println "INFO: Rama eliminada"
-                git.createBranch(env.GIT_BRANCH, 'release-v' + env.RELEASE_VERSION)
-                println "INFO: Rama creada satisfactoriamente"
-            } else {
-                git.createBranch(env.GIT_BRANCH, 'release-v' + env.RELEASE_VERSION)
-                println "INFO: Rama creada satisfactoriamente"
+                if (git.checkIfBranchExists('release-v' + env.RELEASE_VERSION)) {
+                    println "INFO: La rama existe"
+                    git.deleteBranch('release-v' + env.RELEASE_VERSION) 
+                    println "INFO: Rama eliminada"
+                    git.createBranch(env.GIT_BRANCH, 'release-v' + env.RELEASE_VERSION)
+                    println "INFO: Rama creada satisfactoriamente"
+                } else {
+                    git.createBranch(env.GIT_BRANCH, 'release-v' + env.RELEASE_VERSION)
+                    println "INFO: Rama creada satisfactoriamente"
+                }
+            } catch (Exception e) {
+                echo "Error en stage "+STAGE_NAME
             }
+
         }
     }
 
