@@ -46,13 +46,13 @@ def call(){
                             if (params.TOOL == 'gradle'){
                                 gradleCI.call();
                             } else {
-                                gradleCD.call();
+                                mavenCI.call();
                             }
 
                         } else if(env.GIT_BRANCH.contains('release')) {
                             
                             if (params.TOOL == 'gradle'){
-                                mavenCI.call();
+                                gradleCI.call();c
                             } else {
                                 mavenCD.call();
                             }
