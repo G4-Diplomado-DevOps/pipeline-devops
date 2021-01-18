@@ -11,17 +11,17 @@ def call(){
 
     figlet flow_name
 
-    // tecnologhy = validator.technologyType(repo_name)
+    tecnologhy = validator.technologyType(repo_name)
 
-    // figlet tecnologhy
+    figlet tecnologhy
 
     mavenValid = validator.validateTool()
 
     if (mavenValid) {
-        figlet env.TOOL + " Validada"
+        figlet "Tool Maven Validada"
     }
     else {
-        figlet env.TOOL + " NO Validada"
+        figlet "Tool Maven NO Validada"
     }
 
     // Variable para definir si los steps anteriores han sido correctos
