@@ -23,7 +23,7 @@ def call(){
 
             try {
                 if (isUnix()) {
-                    sh "./mvnw.cmd clean compile -e"
+                    sh "./mvnw clean compile -e"
                 } else {
                     bat "./mvnw.cmd clean compile -e"
                 }
@@ -46,7 +46,7 @@ def call(){
 
             try {
                 if (isUnix()) {
-                    sh "./mvnw.cmd clean test -e"
+                    sh "./mvnw clean test -e"
                 } else {
                     bat './mvnw.cmd clean test -e'
                 }
@@ -68,7 +68,7 @@ def call(){
 
             try {
                 if (isUnix()) {
-                    sh "./mvnw.cmd clean package -e"
+                    sh "./mvnw clean package -e"
                 } else {
                     bat './mvnw.cmd clean package -e'
                 }
