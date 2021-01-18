@@ -3,6 +3,25 @@ import pipeline.utils.GitMethods
 
 def call(){
 
+    repo_name = env.GIT_URL.split("/").last().replaceAll('.git', '')
+
+    def flow_name = "Integracion Continua"  
+
+    figlet flow_name
+
+    tecnologhy = validator.technologyType(repo_name)
+
+    figlet tecnologhy
+
+    mavenValid = validator.validateTool()
+
+    if (mavenValid) {
+        figlet env.TOOL + " Validada"
+    }
+    else {
+        figlet env.TOOL + " NO Validada"
+    }
+
     // Variable para definir si los steps anteriores han sido correctos
     // Comienza en false permitiendo que se valide inicie de step en build & test
     def success = false
@@ -172,7 +191,7 @@ def call(){
                     println "INFO: Rama creada satisfactoriamente"
                 }
             } catch (Exception e) {
-                echo "Error en stage "+STAGE_NAME
+                error "Error en stage "+STAGE_NAME
             }
 
         }
