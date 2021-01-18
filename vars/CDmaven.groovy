@@ -64,75 +64,98 @@ def createRelease(){
 //	switch("${cstage[i]}"){
 //	case: "gitDiff"
 
-def compile(){
-	sh './mvw clean compile -e'
-}
-
-def unitTest(){
-	sh './mvw clean test -e'
-}
-
-def jar(){
-	sh './mvw clean package -e'
-}
-
-def sonar(){
-	whitSonarQubeEnv(installationName: 'sonar-server'){
-		sh 'mvn org.sonarsource.scanner.maven:maven:sonar-maven-plugin:3.7.0.1746:sonar'
+	def compile(){
+		sh './mvw clean compile -e'
 	}
-}
 
-def runJar(){
-	sh 'nohup bash mnnw spring-boot:run &'
-}
+	def unitTest(){
+		sh './mvw clean test -e'
+	}
 
-def gitDiff(){
+	def jar(){
+		sh './mvw clean package -e'
+	}
+
+	def sonar(){
+		whitSonarQubeEnv(installationName: 'sonar-server'){
+			sh 'mvn org.sonarsource.scanner.maven:maven:sonar-maven-plugin:3.7.0.1746:sonar'
+		}
+	}
+
+	def runJar(){
+		sh 'nohup bash mnnw spring-boot:run &'
+	}
+
+	def gitDiff(){
+		script {
+			env.ETAPA = 'GitDiff'
+			figlet env.ETAPA
+		}
         if (env.GIT_BRANCH.contains('*release*')){
 
-                del git = new git.GitMethods()
+            def git = new git.GitMethods()
 
-                if (git.chekIfBranchExists('master')){
-                        echo "Rama existe"
-                        git.diffBranch('master',env.GIT_BRANCH)
-                }else{
-			echo "no existe master, verificar branch"
-		}
+            if (git.chekIfBranchExists('master')){
+                echo "Rama existe"
+                git.diffBranch('master',env.GIT_BRANCH)
+            }else{
+				echo "no existe master, verificar branch"
+			}
         }else{
-                echo "la rama $(env.GIT_BRANCH) no corresponde como rama release, no se puede hacer delivery"
+            echo "la rama $(env.GIT_BRANCH) no corresponde como rama release, no se puede hacer delivery"
         }
+	}
 
-}
-
-
-def downloadNexus() {
-	        sh "curl -X GET -u admin:devops4 http://34.229.88.5:8085/repository/laboratorio-grupo-4/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"
-
-        }
+	def nexusDownload() {
+	    script {
+			env.ETAPA = 'NexusDownload'
+			figlet env.ETAPA
+		}
+		sh "curl -X GET -u admin:devops4 http://34.229.88.5:8085/repository/laboratorio-grupo-4/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"
+    }
     
-//def run(){
-//            	sh 'nohup java -jar DevOpsUsach2020-0.0.1.jar &'            
-//}
+	def run(){
+		script {
+			env.ETAPA = 'Run'
+			figlet env.ETAPA
+		}
+       	sh 'nohup java -jar DevOpsUsach2020-0.0.1.jar &'            
+	}
     
-def test() {
+	def test() {
+		script {
+			env.ETAPA = 'Test'
+			figlet env.ETAPA
+		}
 		sh 'sleep 20'
 		sh "curl -X GET 'http://localhost:8082/rest/mscovid/test?msg=testing'" 
-}
+	}
 
-def gitMergeMaster() {
-		def git = new git.GitMethods(){
-
-		git.DeployToMain(env.GIT_BRANCH,'release-v1-0-0')
-
+	def gitMergeMaster() {
+		script {
+			env.ETAPA = 'GitMergeMaster'
+			figlet env.ETAPA
 		}
+		def git = new git.GitMethods()
+		git.DeployToMain(env.GIT_BRANCH,'release-v1-0-0')
+	}
+
+	def gitMergeDevelop() {
+		script {
+			env.ETAPA = 'GitMergeDevelop'
+			figlet env.ETAPA
+		}
+		// TODO
+	}
+
+	def gitTagMaster() {
+		script {
+			env.ETAPA = 'GitTagMaster'
+			figlet env.ETAPA
+		}
+		// TODO
+	}
+
 }
-
-def gitMergeDevelop() {
-		
-}
-
-def gitTagMaster() {
-
-}
-
 
 return this;
