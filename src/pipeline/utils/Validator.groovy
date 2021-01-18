@@ -41,4 +41,35 @@ def getNameFlow(branch_name){
     }
 }
 
+def technologyType(String nombreProyecto) {
+
+    if (nombreProyecto.contains('ms')) {
+        return "Tecnologia Microservicios"
+    }
+    else if (nombreProyecto.contains('front')) {
+        return "Tecnologia Frontend"
+    }
+    else if (nombreProyecto.contains('bff')) {
+        return "Tecnologia Backend for Fronend"
+    }
+    else {
+        return "Tecnologia No Reconocida"
+    }
+
+}
+
+def validateTool() {
+
+    def fileTool = (env.TOOL == 'maven') ? 'pom.xml' : 'build.gradle'
+
+    println "DEBUG: fileTool ->" + fileTool
+
+    if (fileExists(fileTool)) {
+        return true
+    } 
+    else {
+        return false
+    }
+}
+
 return this;
