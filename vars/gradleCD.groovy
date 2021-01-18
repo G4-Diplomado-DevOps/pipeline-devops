@@ -1,14 +1,18 @@
-import pipeline.utils.*
+import pipeline.utils.Validator
+import pipeline.utils.GitMethods
 
 //def call(stage_param, branch_name){
  def call(String choosenStages){
 	
 	def utils = new test.UtilMethods()
 //Quizás leer un archivo con los stages en vez de tenerlos
-	def pipeline = (utils.isCIorCD().contains(ci)) ? ['compile','unitTest','jar','sonar','nexusUpload','gitCreateRelease'] : ['gitDiff','nexusDownload','run','test','gitMergeMaster','gitDevelop','gitTagMaster']
-//    def validator = new Validator()
+	def pipeline = ['gitDiff','nexusDownload','run','test','gitMergeMaster','gitDevelop','gitTagMaster']
+
+    def util = new Validator()
 	def stages = utils.getValidateStages(choosenStages, pipelineStages)
 
+    def so = isUnix() ? 'Linux' : 'Windows'
+    figlet so
 
 	flow_name = validator.getNameFlow(branch_name)
 
@@ -25,37 +29,7 @@ import pipeline.utils.*
 
 		}
 	}
-}
 
-
-def createRelease(){
-	if (env.GIT_BRANCH.contains('develop')){
-
-		del git = new git.GitMethods()
-
-		if (git.chekIfBranchExists('release-v1-0-0')){
-			echo "Rama existe"
-			git.deleteBranch('release-v1-0-0')
-			echo "se elimino rama"
-			git.createBranch(env.GIT_BRANCH,'release-v1-0-0')
-			echo "branch creado"
-		}else{
-			git.createBranch(env.GIT_BRANCH,'release-v1-0-0')
-	}else{
-		echo "la rama $(env.GIT_BRANCH) no corresponde como rama de origen para la creacion de un release"
-	}
-}
-
-//separamos los flujos CI/CD
-//    switch(flow_name.toLowerCase()) {
-//        case "integracion continua":
-//            ciFlow(stage_param)
-//        break;
-//        case "despliegue continuo":
-//            cdFlow(stage_param)
-//        break;
-//    }
-//}
 
 // Flujo CD
 //        echo "Inicio CDmaven.goovy"
@@ -63,33 +37,6 @@ def createRelease(){
                         echo " ejecucion de for para ${cstage[i]}"
 //	switch("${cstage[i]}"){
 //	case: "gitDiff"
-
-	def compile(){
-		//sh './mvnw clean compile -e'
-    bat "gradlew clean build"
-	}
-
-	def unitTest(){
-//		sh './mvnw clean test -e'
-  bat 'start /B gradle bootrun'  
-	}
-
-	def jar(){
-//		sh './mvnw clean package -e'
-  bat "./gradlew clean build"  
-	}
-
-	def sonar(){
-		whitSonarQubeEnv(installationName: 'sonar-server'){
-//			sh 'mvn org.sonarsource.scanner.maven:maven:sonar-maven-plugin:3.7.0.1746:sonar'
-    	bat "mvn org.sonarsource.scanner.maven:maven:sonar-maven-plugin:3.7.0.1746:sonar"
-		}
-	}
-
-	def runJar(){
-//		sh 'nohup bash mvnw spring-boot:run &'
-    bat "start gradlew bootRun"
-	}
 
 	def gitDiff(){
 		script {
