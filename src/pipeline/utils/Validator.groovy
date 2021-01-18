@@ -1,7 +1,14 @@
-//Validator
-
-//Classpath
+// Classpath
 package pipeline.utils
+
+def validateStage(stage) {
+
+    def stages = params.stage.tokenize(';')
+    
+    if(stages.contains(stage) || stages.size()==0) return true
+    
+    return false
+}
 
 def isValidStage(String stage_pipeline, String stage_param) {
 
