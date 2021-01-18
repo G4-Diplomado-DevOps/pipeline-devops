@@ -24,7 +24,7 @@ import pipeline.utils.*
 
 		}
 	}
-
+ }
 
 /*
 def createRelease(){
@@ -134,6 +134,6 @@ def createRelease(){
 		// TODO
 	}
 
-}
+
 
 return this;
