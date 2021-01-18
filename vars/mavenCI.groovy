@@ -23,7 +23,7 @@ def call(){
 
             try {
                 if (isUnix()) {
-                    sh "./mvnw clean compile -e"
+                    sh './mvnw clean compile -e'   
                 } else {
                     bat "./mvnw.cmd clean compile -e"
                 }
