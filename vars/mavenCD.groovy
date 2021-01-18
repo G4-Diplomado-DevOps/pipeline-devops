@@ -1,4 +1,5 @@
-import pipeline.utils.*
+import pipeline.utils.Validator
+import pipeline.utils.GitMethods
 
 //def call(stage_param, branch_name){
  def call(String choosenStages){
