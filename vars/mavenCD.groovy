@@ -63,28 +63,6 @@ def createRelease(){
 //	switch("${cstage[i]}"){
 //	case: "gitDiff"
 
-	def compile(){
-		sh './mvnw clean compile -e'
-	}
-
-	def unitTest(){
-		sh './mvnw clean test -e'
-	}
-
-	def jar(){
-		sh './mvnw clean package -e'
-	}
-
-	def sonar(){
-		whitSonarQubeEnv(installationName: 'sonar-server'){
-			sh 'mvn org.sonarsource.scanner.maven:maven:sonar-maven-plugin:3.7.0.1746:sonar'
-		}
-	}
-
-	def runJar(){
-		sh 'nohup bash mvnw spring-boot:run &'
-	}
-
 	def gitDiff(){
 		script {
 			env.ETAPA = 'GitDiff'
