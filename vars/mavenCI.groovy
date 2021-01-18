@@ -105,8 +105,6 @@ def call(){
                     }
                 }
 
-            }
-
                 // Si pasa el try el step fue exitoso
                 success = true
 
