@@ -1,14 +1,18 @@
-import pipeline.utils.*
+import pipeline.utils.Validator
+import pipeline.utils.GitMethods
 
 //def call(stage_param, branch_name){
  def call(String choosenStages){
 	
 	def utils = new test.UtilMethods()
 //Quizás leer un archivo con los stages en vez de tenerlos
-	def pipeline = (utils.isCIorCD().contains(ci)) ? ['compile','unitTest','jar','sonar','nexusUpload','gitCreateRelease'] : ['gitDiff','nexusDownload','run','test','gitMergeMaster','gitDevelop','gitTagMaster']
-//    def validator = new Validator()
+	def pipeline = ['gitDiff','nexusDownload','run','test','gitMergeMaster','gitDevelop','gitTagMaster']
+
+    def util = new Validator()
 	def stages = utils.getValidateStages(choosenStages, pipelineStages)
 
+    def so = isUnix() ? 'Linux' : 'Windows'
+    figlet so
 
 	flow_name = validator.getNameFlow(branch_name)
 
@@ -25,37 +29,7 @@ import pipeline.utils.*
 
 		}
 	}
-}
 
-
-def createRelease(){
-	if (env.GIT_BRANCH.contains('develop')){
-
-		del git = new git.GitMethods()
-
-		if (git.chekIfBranchExists('release-v1-0-0')){
-			echo "Rama existe"
-			git.deleteBranch('release-v1-0-0')
-			echo "se elimino rama"
-			git.createBranch(env.GIT_BRANCH,'release-v1-0-0')
-			echo "branch creado"
-		}else{
-			git.createBranch(env.GIT_BRANCH,'release-v1-0-0')
-	}else{
-		echo "la rama $(env.GIT_BRANCH) no corresponde como rama de origen para la creacion de un release"
-	}
-}
-
-//separamos los flujos CI/CD
-//    switch(flow_name.toLowerCase()) {
-//        case "integracion continua":
-//            ciFlow(stage_param)
-//        break;
-//        case "despliegue continuo":
-//            cdFlow(stage_param)
-//        break;
-//    }
-//}
 
 // Flujo CD
 //        echo "Inicio CDmaven.goovy"
@@ -63,33 +37,6 @@ def createRelease(){
                         echo " ejecucion de for para ${cstage[i]}"
 //	switch("${cstage[i]}"){
 //	case: "gitDiff"
-
-	def compile(){
-		//sh './mvnw clean compile -e'
-    bat "gradlew clean build"
-	}
-
-	def unitTest(){
-//		sh './mvnw clean test -e'
-  bat 'start /B gradle bootrun'  
-	}
-
-	def jar(){
-//		sh './mvnw clean package -e'
-  bat "./gradlew clean build"  
-	}
-
-	def sonar(){
-		whitSonarQubeEnv(installationName: 'sonar-server'){
-//			sh 'mvn org.sonarsource.scanner.maven:maven:sonar-maven-plugin:3.7.0.1746:sonar'
-    	bat "mvn org.sonarsource.scanner.maven:maven:sonar-maven-plugin:3.7.0.1746:sonar"
-		}
-	}
-
-	def runJar(){
-//		sh 'nohup bash mvnw spring-boot:run &'
-    bat "start gradlew bootRun"
-	}
 
 	def gitDiff(){
 		script {
@@ -116,7 +63,11 @@ def createRelease(){
 			env.ETAPA = 'NexusDownload'
 			figlet env.ETAPA
 		}
-		sh "curl -X GET -u admin:devops4 http://34.229.88.5:8085/repository/laboratorio-grupo-4/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"
+		if (isUnix()){
+			sh "curl -X GET -u admin:devops4 http://34.229.88.5:8085/repository/laboratorio-grupo-4/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"
+		} else {
+			bat "curl -X GET -u admin:devops4 http://34.229.88.5:8085/repository/laboratorio-grupo-4/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"
+		}
     }
     
 	def run(){
@@ -124,7 +75,11 @@ def createRelease(){
 			env.ETAPA = 'Run'
 			figlet env.ETAPA
 		}
-       	sh 'nohup java -jar DevOpsUsach2020-0.0.1.jar &'            
+		if (isUnix()){
+			sh 'nohup java -Dserver.port=8082 -jar DevOpsUsach2020-0.0.1.jar &'
+		} else {
+			bat 'start /B java -Dserver.port=8082 -jar DevOpsUsach2020-1.0.0.jar'
+		} 
 	}
     
 	def test() {
@@ -132,8 +87,13 @@ def createRelease(){
 			env.ETAPA = 'Test'
 			figlet env.ETAPA
 		}
-		sh 'sleep 20'
-		sh "curl -X GET 'http://localhost:8082/rest/mscovid/test?msg=testing'" 
+		if (isUnix()){
+			sh 'sleep 20'
+			sh "curl -X GET 'http://localhost:8082/rest/mscovid/test?msg=testing'" 	
+		} else {
+			bat 'sleep 20'
+			bat "curl -X GET 'http://localhost:8082/rest/mscovid/test?msg=testing'" 
+		}
 	}
 
 	def gitMergeMaster() {

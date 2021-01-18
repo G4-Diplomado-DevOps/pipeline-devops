@@ -17,15 +17,14 @@ import pipeline.utils.*
 	stages.each{
 		stages(it){
 			try{
-				"${it}"
-			}
-			catch(){
+				"${it}"()
+			} catch( Exception e){
 				error "Stage ${it} tiene problemas : ${e}" 
 			}
 
 		}
 	}
-}
+
 
 
 def createRelease(){
@@ -63,28 +62,6 @@ def createRelease(){
                         echo " ejecucion de for para ${cstage[i]}"
 //	switch("${cstage[i]}"){
 //	case: "gitDiff"
-
-	def compile(){
-		sh './mvnw clean compile -e'
-	}
-
-	def unitTest(){
-		sh './mvnw clean test -e'
-	}
-
-	def jar(){
-		sh './mvnw clean package -e'
-	}
-
-	def sonar(){
-		whitSonarQubeEnv(installationName: 'sonar-server'){
-			sh 'mvn org.sonarsource.scanner.maven:maven:sonar-maven-plugin:3.7.0.1746:sonar'
-		}
-	}
-
-	def runJar(){
-		sh 'nohup bash mvnw spring-boot:run &'
-	}
 
 	def gitDiff(){
 		script {
