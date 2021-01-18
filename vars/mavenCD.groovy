@@ -26,7 +26,7 @@ import pipeline.utils.*
 	}
 
 
-
+/*
 def createRelease(){
 	if (env.GIT_BRANCH.contains('develop')){
 
@@ -44,6 +44,7 @@ def createRelease(){
 		echo "la rama $(env.GIT_BRANCH) no corresponde como rama de origen para la creacion de un release"
 	}
 }
+*/
 
 //separamos los flujos CI/CD
 //    switch(flow_name.toLowerCase()) {
