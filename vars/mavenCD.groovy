@@ -4,7 +4,7 @@ import pipeline.utils.GitMethods
 //def call(stage_param, branch_name){
  def call(String choosenStages){
 	
-	def utils = new test.UtilMethods()
+	def utils = new Validator.UtilMethods()
 //Quizás leer un archivo con los stages en vez de tenerlos
 	def pipeline = (utils.isCIorCD().contains(ci)) ? ['compile','unitTest','jar','sonar','nexusUpload','gitCreateRelease'] : ['gitDiff','nexusDownload','run','test','gitMergeMaster','gitDevelop','gitTagMaster']
 //    def validator = new Validator()
