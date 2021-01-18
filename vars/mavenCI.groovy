@@ -36,6 +36,7 @@ def call(){
             }
 
         }
+        println "DEBUB: sucess:" + sucess
     }
 
     if(util.validateStage('unitTest') && success)
