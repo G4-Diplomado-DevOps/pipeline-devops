@@ -91,17 +91,18 @@ def gitDiff(){
 
                 del git = new git.GitMethods()
 
-                if (git.chekIfBranchExists('release-v1-0-0')){
+                if (git.chekIfBranchExists('master')){
                         echo "Rama existe"
-                        git.createBranch(env.GIT_BRANCH,'release-v1-0-0')
-                        echo "branch creado"
+                        git.diffBranch('master',env.GIT_BRANCH)
                 }else{
-                        git.createBranch(env.GIT_BRANCH,'release-v1-0-0')
+			echo "no existe master, verificar branch"
+		}
         }else{
-                echo "la rama $(env.GIT_BRANCH) no corresponde como rama de origen para la creacion de un release"
+                echo "la rama $(env.GIT_BRANCH) no corresponde como rama release, no se puede hacer delivery"
         }
 
 }
+
 
 def downloadNexus() {
 	        sh "curl -X GET -u admin:devops4 http://34.229.88.5:8085/repository/laboratorio-grupo-4/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"
@@ -118,16 +119,15 @@ def test() {
 }
 
 def gitMergeMaster() {
-		def git = new git.GitMethods()
-		if (git.chekIfBranchExists(env.GIT_BRANCH)){
-			git.deleteBranch('release-v1-0-0')
-			git.crearBranch(env.GIT_BRANCH,'release-v1-0-0')
-			git.mergeMaster()
+		def git = new git.GitMethods(){
+
+		git.DeployToMain(env.GIT_BRANCH,'release-v1-0-0')
+
 		}
 }
 
-def gitMeDevelop() {
-
+def gitMergeDevelop() {
+		
 }
 
 def gitTagMaster() {

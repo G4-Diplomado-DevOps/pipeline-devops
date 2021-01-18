@@ -32,7 +32,7 @@ def diffBranch(String origin, String master){
                 git fetch -p
                 git checkout """${master}""" ; git pull
                 git fetch -p
-                git diff """${origin}""" """master""" | xargs -I{.} echo {.}
+                git diff """${origin}""" """{master}""" | xargs -I{.} echo {.}
         '''
 }
 
@@ -61,7 +61,7 @@ def gitMerge(String origin, String master){
 }
 
 def gitTagMaster(String master){
-        sh 'git checkout """${master}""" ; git pull;git fetch -p'
+        sh "git checkout ${master} ; git pull;git fetch -p"
         def versionTag = sh ( script: " git reflog| grep -Po "release-v.-.-.", returnStdout:true )
         sh 'git tag ${versionTag} -m "Primera versión"'
 	sh 'git push --tags'
