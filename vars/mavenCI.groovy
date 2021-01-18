@@ -3,6 +3,14 @@ import pipeline.utils.GitMethods
 
 def call(){
 
+
+    // Variable para definir si los steps anteriores han sido correctos
+    // Comienza en false permitiendo que se valide inicie de step en build & test
+    def success = false
+
+    // Importacion de funciones desde Util
+    def util = new Validator()
+
     repo_name = env.GIT_URL.split("/").last().replaceAll('.git', '')
 
     println "DEBUG: env.GIT_URL="+env.GIT_URL
@@ -11,11 +19,11 @@ def call(){
 
     figlet flow_name
 
-    tecnologhy = validator.technologyType(repo_name)
+    tecnologhy = util.technologyType(repo_name)
 
     figlet tecnologhy
 
-    mavenValid = validator.validateTool()
+    mavenValid = util.validateTool()
 
     if (mavenValid) {
         figlet "Tool Maven Validada"
@@ -23,13 +31,7 @@ def call(){
     else {
         figlet "Tool Maven NO Validada"
     }
-
-    // Variable para definir si los steps anteriores han sido correctos
-    // Comienza en false permitiendo que se valide inicie de step en build & test
-    def success = false
-
-    // Importacion de funciones desde Util
-    def util = new Validator()
+    
 
     // Despliegue de sistema operativo desde donde se corre pipeline (Para definir sh o bat)
     def so = isUnix() ? 'Linux' : 'Windows'
