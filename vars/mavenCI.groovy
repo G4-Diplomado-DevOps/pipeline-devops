@@ -5,13 +5,15 @@ def call(){
 
     repo_name = env.GIT_URL.split("/").last().replaceAll('.git', '')
 
+    println "DEBUG: env.GIT_URL="+env.GIT_URL
+
     def flow_name = "Integracion Continua"  
 
     figlet flow_name
 
-    tecnologhy = validator.technologyType(repo_name)
+    // tecnologhy = validator.technologyType(repo_name)
 
-    figlet tecnologhy
+    // figlet tecnologhy
 
     mavenValid = validator.validateTool()
 
