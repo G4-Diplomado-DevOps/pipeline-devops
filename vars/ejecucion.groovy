@@ -11,6 +11,15 @@ def call(){
         agent any
 
         parameters {
+            choice (
+                name: 'TOOL',
+                choices:
+                    [
+                        'maven',
+                        'gradle'
+                    ],
+                description: 'Selecciona herramienta de compilacion'
+            )
             string (
                 name: 'stage',
                 defaultValue: '',
@@ -31,16 +40,23 @@ def call(){
                         figlet params.TOOL
 
                         env.RELEASE_VERSION = params.releaseVersion
-                        
+
                         if(env.GIT_BRANCH=='develop' || env.GIT_BRANCH.contains('feature'))
                         {
-                            gradleCI.call();
-                        } else if(env.GIT_BRANCH.contains('release')) {
-                            gradleCD.call();
-                        } else {
-                            // Do Nothing.
-                        }
+                            if (params.TOOL == 'gradle'){
+                                gradleCI.call();
+                            } else {
+                                gradleCD.call();
+                            }
 
+                        } else if(env.GIT_BRANCH.contains('release')) {
+                            
+                            if (params.TOOL == 'gradle'){
+                                mavenCI.call();
+                            } else {
+                                mavenCD.call();
+                            }
+                        }
                     }
                 }
             }
