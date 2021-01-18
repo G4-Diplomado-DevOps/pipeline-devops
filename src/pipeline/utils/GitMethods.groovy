@@ -60,8 +60,8 @@ def gitMerge(String origin, String master){
         '''
 }
 
-def gitTagMaster(String master){
-        sh "git checkout ${master} ; git pull;git fetch -p"
+def gitTagMaster(){
+        sh 'git checkout ${master} ; git pull;git fetch -p'
         def versionTag = sh ( script: " git reflog| grep -Po "release-v.-.-.", returnStdout:true )
         sh 'git tag ${versionTag} -m "Primera versión"'
 	sh 'git push --tags'
