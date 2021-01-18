@@ -17,7 +17,7 @@ import pipeline.utils.*
 	stages.each{
 		stages(it){
 			try{
-				"${it}"
+				"${it}"()
 			} catch(){
 				error "Stage ${it} tiene problemas : ${e}" 
 			}
