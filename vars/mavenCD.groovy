@@ -1,4 +1,5 @@
-import pipeline.utils.*
+import pipeline.utils.Validator
+import pipeline.utils.GitMethods
 
 //def call(stage_param, branch_name){
  def call(String choosenStages){
@@ -24,7 +25,7 @@ import pipeline.utils.*
 
 		}
 	}
-
+ }
 
 /*
 def createRelease(){
@@ -80,7 +81,7 @@ def createRelease(){
 				echo "no existe master, verificar branch"
 			}
         }else{
-            echo "la rama $(env.GIT_BRANCH) no corresponde como rama release, no se puede hacer delivery"
+            echo "la rama ${env.GIT_BRANCH} no corresponde como rama release, no se puede hacer delivery"
         }
 	}
 
@@ -134,6 +135,6 @@ def createRelease(){
 		// TODO
 	}
 
-}
+
 
 return this;
