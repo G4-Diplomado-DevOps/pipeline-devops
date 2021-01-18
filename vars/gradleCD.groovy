@@ -63,7 +63,11 @@ import pipeline.utils.GitMethods
 			env.ETAPA = 'NexusDownload'
 			figlet env.ETAPA
 		}
-		sh "curl -X GET -u admin:devops4 http://34.229.88.5:8085/repository/laboratorio-grupo-4/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"
+		if (isUnix()){
+			sh "curl -X GET -u admin:devops4 http://34.229.88.5:8085/repository/laboratorio-grupo-4/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"
+		} else {
+			bat "curl -X GET -u admin:devops4 http://34.229.88.5:8085/repository/laboratorio-grupo-4/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"
+		}
     }
     
 	def run(){
@@ -71,7 +75,11 @@ import pipeline.utils.GitMethods
 			env.ETAPA = 'Run'
 			figlet env.ETAPA
 		}
-       	sh 'nohup java -jar DevOpsUsach2020-0.0.1.jar &'            
+		if (isUnix()){
+			sh 'nohup java -Dserver.port=8082 -jar DevOpsUsach2020-0.0.1.jar &'
+		} else {
+			bat 'start /B java -Dserver.port=8082 -jar DevOpsUsach2020-1.0.0.jar'
+		} 
 	}
     
 	def test() {
@@ -79,8 +87,13 @@ import pipeline.utils.GitMethods
 			env.ETAPA = 'Test'
 			figlet env.ETAPA
 		}
-		sh 'sleep 20'
-		sh "curl -X GET 'http://localhost:8082/rest/mscovid/test?msg=testing'" 
+		if (isUnix()){
+			sh 'sleep 20'
+			sh "curl -X GET 'http://localhost:8082/rest/mscovid/test?msg=testing'" 	
+		} else {
+			bat 'sleep 20'
+			bat "curl -X GET 'http://localhost:8082/rest/mscovid/test?msg=testing'" 
+		}
 	}
 
 	def gitMergeMaster() {
