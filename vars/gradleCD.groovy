@@ -33,7 +33,7 @@ def gitDiff(){
                         figlet env.ETAPA
                 }
                 
-        def relv = sh ( script: " echo ${GIT_BRANCH}|sed -n 's/.*\\(release-v.-.-.*\\).*/\\1/p' ", returnStdout:true )
+        relv = sh ( script: " echo ${GIT_BRANCH}|sed -n 's/.*\\(release-v.-.-.*\\).*/\\1/p' ", returnStdout:true )
 //        if (env.GIT_BRANCH.contains('*release*')){
         if ( ${relv} == 'release-v1-0-0' ){
             def git = new GitMethods()
