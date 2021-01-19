@@ -18,6 +18,7 @@ def call(){
         figlet so
  
         stages.each{
+                echo "recorre stages"
                 if (validador.validateStage("${it}")){       
                         stages("${it}"){
                                 try{
