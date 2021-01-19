@@ -33,7 +33,7 @@ def gitDiff(){
                         figlet env.ETAPA
                 }
         echo "la variable GIT_BRANCH es env.GIT_BRANCH"
-         GBranch = sh ( script: " echo env.GIT_BRANCH| grep -Po "release-v.-.-."", returnStdout:true )
+         GBranch = sh ( script: " echo env.GIT_BRANCH| grep -Po 'release-v.-.-.'", returnStdout:true )
          echo "la rama es "$Gbranch""                  
         
         if (env.GIT_BRANCH.contains('*release*')){
