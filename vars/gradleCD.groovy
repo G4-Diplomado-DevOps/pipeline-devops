@@ -22,7 +22,7 @@ def call(){
                         stages("${it}"){
                                 try{
                                         echo " pasando por stage ${it}"
-                                        "${stg}".()
+                                        "${stg}"()
                                 } catch( Exception e){
                                         error "Stage ${it} tiene problemas : ${e}"
                                 }
