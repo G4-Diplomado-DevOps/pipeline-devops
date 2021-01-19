@@ -46,7 +46,7 @@ def call(){
 
             try {
                 if (isUnix()) {
-                    sh "nohup bash gradlew bootRun &"
+                    sh "nohup bash gradle bootRun &"
                 } else {
                     bat 'start /B gradle bootRun'
                 }
