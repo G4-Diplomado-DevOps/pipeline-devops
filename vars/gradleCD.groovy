@@ -32,13 +32,10 @@ def gitDiff(){
                         env.ETAPA = 'GitDiff'
                         figlet env.ETAPA
                 }
-        String str = "${env.GIT_BRANCH}"
-        String subStr=str.substring(7);
-        echo "la rama es ${subStr}"                  
-//        sed -n 's/.*\(release-v.-.-.*\).*/\1/p'
+                
         def relv = sh ( script: " echo ${GIT_BRANCH}|sed -n 's/.*\\(release-v.-.-.*\\).*/\\1/p' ", returnStdout:true )
 //        if (env.GIT_BRANCH.contains('*release*')){
-        if (env.GIT_BRANCH.contains("${relv}")){
+        if ( "${relv}" == 'release-v1-0-0' ){
             def git = new GitMethods()
 
             if (git.checkIfBranchExists('master')){
