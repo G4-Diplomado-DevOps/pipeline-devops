@@ -9,13 +9,13 @@ def call(){
         def pipelineStages = ['gitDiff','nexusDownload','run','test','gitMergeMaster','gitDevelop','gitTagMaster']
 //    def validator = new Validator()
 //        def stages = validador.validateStage(choosenStages,pipelineStages )
-//        def stages = validador.isValidStage(choosenStages)
+        def stages = pipelineStages
         
         // Despliegue de sistema operativo desde donde se corre pipeline (Para definir sh o bat)
         def so = isUnix() ? 'Linux' : 'Windows'
         figlet so
  
-        pipelineStages.each{
+        stages.each{
                 stages(it){
                         try{
                                 if (validador.validateStage(it)){       
