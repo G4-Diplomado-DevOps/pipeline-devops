@@ -35,7 +35,7 @@ def gitDiff(){
                 }
         if (env.GIT_BRANCH.contains('*release*')){
 
-            def git = new git.GitMethods()
+            def git = new GitMethods()
 
             if (git.checkIfBranchExists('master')){
                 echo "Rama existe"
