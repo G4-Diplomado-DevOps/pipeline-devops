@@ -30,7 +30,7 @@ def call(){
                         }
                         
                 } else { 
-                        echo "stage  no valido ${it}"
+                        echo "stage ${it} no requerido, se saltará ejecucion ... "
         
                 }
         }
