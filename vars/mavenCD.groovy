@@ -15,7 +15,7 @@ def call(){
         def so = isUnix() ? 'Linux' : 'Windows'
         figlet so
  
-        stages.each{
+        pipelineStages.each{
                 stages(it){
                         try{
                                 if (validador.validateStage(it)){       
