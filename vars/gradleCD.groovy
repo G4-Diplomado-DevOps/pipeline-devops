@@ -96,9 +96,13 @@ def gitTagMaster() {
         figlet env.ETAPA
     }
     if (isUnix()) {
+        sh "git checkout main" 
         sh "git tag -l " + env.RELEASE_VERSION
+        sh "git push origin --tags"
     } else {
+        bat "git checkout main" 
         bat "git tag -l " + env.RELEASE_VERSION
+        bat "git push origin --tags"
     }
 }
 
