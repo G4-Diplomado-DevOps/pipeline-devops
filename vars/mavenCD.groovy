@@ -2,18 +2,19 @@ import pipeline.utils.Validator
 import pipeline.utils.GitMethods
 
 //def call(stage_param, branch_name){
- def call(String choosenStages, String pipelineStages){
-
+// def call(String choosenStages, String pipelineStages){
+def call(){
         def validador = new Validator()
 //Quizás leer un archivo con los stages en vez de tenerlos
 //        def pipelineStages = "gitDiff;nexusDownload;run;test;gitMergeMaster;gitDevelop;gitTagMaster"
 //    def validator = new Validator()
-        def stages = validador.isValidStage(choosenStages,pipelineStages )
+        def stages = validador.validateStage(choosenStages,pipelineStages )
 //        def stages = validador.isValidStage(choosenStages)
         flow_name = validador.getNameFlow(branch_name)
 
         figlet flow_name
         figlet so
+ 
         stages.each{
                 stages(it){
                         try{
