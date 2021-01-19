@@ -7,7 +7,7 @@ def call(){
         def validador = new Validator()
 //Quizás leer un archivo con los stages en vez de tenerlos
 //        def pipelineStages = ['gitDiff';'nexusDownload';'run';'test';'gitMergeMaster';'gitDevelop';'gitTagMaster']
-        def stages = ['gitDiff','nexusDownload','run','test','gitMergeMaster','gitDevelop','gitTagMaster']
+        def stages = ['gitDiff','nexusDownload','runJar','test','gitMergeMaster','gitDevelop','gitTagMaster']
 
         //    def validator = new Validator()
 //        def stages = validador.validateStage(choosenStages,pipelineStages )
