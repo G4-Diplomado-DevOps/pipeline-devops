@@ -116,7 +116,7 @@ def createRelease(){
 			figlet env.ETAPA
 		}
 		def git = new git.GitMethods()
-		git.DeployToMain(env.GIT_BRANCH,'release-v1-0-0')
+		git.gitMerge(env.GIT_BRANCH,'release-v1-0-0')
 	}
 
 	def gitMergeDevelop() {
