@@ -19,17 +19,4 @@ def createBranch(String origin, String newBranch) {
     output =  sh (script :"git checkout ${origin}" , returnStdout: true)
     output =  sh (script :"git checkout -b ${newBranch}" , returnStdout: true)
     output =  sh (script :"git push origin ${newBranch}" , returnStdout: true)
-
-	/*
-	println "DEBUG: origin=" + origin
-	println "DEBUG: newBranch=" + newBranch 
- 
-	sh 'git pull'
-	sh 'git checkout ' + origin
-	sh 'git checkout -b ' + newBranch
-	// sh 'git push origin ' + newBranch
-	sh 'git push https://jibanez123456:jibanez74@github.com/G4-Diplomado-DevOps/ms-iclab.git'
-	
-	sh 'git checkout ' + origin
-	*/
 }
