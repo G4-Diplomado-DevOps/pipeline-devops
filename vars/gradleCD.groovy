@@ -29,7 +29,7 @@ def gitDiff(){
         env.ETAPA = 'GitDiff'
         figlet env.ETAPA
     }
-    sh 'git diff origin/main...' + ${env.GIT_BRANCH}
+    sh 'git diff origin/main...' + env.GIT_BRANCH
 }
 
 def nexusDownload() {
