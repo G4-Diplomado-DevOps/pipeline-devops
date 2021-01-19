@@ -10,9 +10,9 @@ def call(){
 //    def validator = new Validator()
 //        def stages = validador.validateStage(choosenStages,pipelineStages )
 //        def stages = validador.isValidStage(choosenStages)
-        flow_name = env.GIT_BRANCH
-
-        figlet flow_name
+        
+        // Despliegue de sistema operativo desde donde se corre pipeline (Para definir sh o bat)
+        def so = isUnix() ? 'Linux' : 'Windows'
         figlet so
  
         stages.each{
