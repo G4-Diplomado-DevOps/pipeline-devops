@@ -10,7 +10,7 @@ def call(){
 //    def validator = new Validator()
 //        def stages = validador.validateStage(choosenStages,pipelineStages )
 //        def stages = validador.isValidStage(choosenStages)
-        flow_name = validador.getNameFlow(branch_name)
+        flow_name = env.GIT_BRANCH
 
         figlet flow_name
         figlet so
