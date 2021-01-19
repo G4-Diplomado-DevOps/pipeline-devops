@@ -39,7 +39,7 @@ def gitDiff(){
 
             if (git.checkIfBranchExists('master')){
                 echo "Rama existe"
-                git.diffMerge('master',env.GIT_BRANCH)
+                git.diffMerge('master','release-v1-0-0')
             } else {
                                 echo "no existe master, verificar branch"
             }} else {
@@ -73,21 +73,21 @@ def test() {
                 sh "curl -X GET 'http://localhost:8082/rest/mscovid/test?msg=testing'"
         }
 
-def gitMergeMaster(master) {
+def gitMergeMaster() {
                 script {
                         env.ETAPA = 'GitMergeMaster'
                         figlet env.ETAPA
                 }
                 def git = new git.GitMethods()
-                git.gitMerge(env.GIT_BRANCH,'release-v1-0-0')
+                git.gitMerge('master','release-v1-0-0')
         }
 
-def gitMergeDevelop(env.GIT_BRANCH,develop) {
+def gitMergeDevelop() {
                 script {
                         env.ETAPA = 'GitMergeDevelop'
                         figlet env.ETAPA
                 }
-                git.gitMerge(env.GIT_BRANCH,'release-v1-0-0')
+                git.gitMerge('develop','release-v1-0-0')
 
         }
 
