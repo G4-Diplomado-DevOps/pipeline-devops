@@ -36,7 +36,7 @@ def gitDiff(){
         String subStr=str.substring(7);
         echo "la rama es ${subStr}"                  
         sed -n 's/.*\(release-v.-.-.*\).*/\1/p'
-        relv = sh ( script: " echo ${GIT_BRANCH}|sed -n 's/.*\(release-v.-.-.*\).*/\1/p' ", returnStdout:true )
+        relv = sh ( script: " echo ${GIT_BRANCH}|sed -n 's/.*\\(release-v.-.-.*\\).*/\\1/p' ", returnStdout:true )
 //        if (env.GIT_BRANCH.contains('*release*')){
         if (env.GIT_BRANCH.contains('*.\(release-v1.-.-.\)')){
             def git = new GitMethods()
