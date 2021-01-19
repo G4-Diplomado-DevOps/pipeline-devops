@@ -37,7 +37,7 @@ def gitDiff(){
 
             def git = new git.GitMethods()
 
-            if (git.chekIfBranchExists('master')){
+            if (git.checkIfBranchExists('master')){
                 echo "Rama existe"
                 git.diffMerge('master',env.GIT_BRANCH)
             } else {
