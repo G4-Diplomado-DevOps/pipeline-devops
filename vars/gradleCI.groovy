@@ -23,9 +23,9 @@ def call(){
 
             try {
                 if (isUnix()) {
-                    sh "gradle clean build"
+                    sh "gradlew clean build"
                 } else {
-                    bat "gradle clean build"
+                    bat "gradlew clean build"
                 }
 
                 // Si pasa el try el step fue exitoso
