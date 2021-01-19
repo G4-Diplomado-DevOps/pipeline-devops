@@ -78,8 +78,9 @@ def gitMergeMaster() {
         env.ETAPA = 'GitMergeMaster'
         figlet env.ETAPA
     }
+    
     def git = new GitMethods()
-    git.gitMerge('release-v1-0-0','main')
+    git.gitMerge('release-v' + env.RELEASE_VERSION,'main')
 }
 
 def gitMergeDevelop() {
@@ -87,8 +88,9 @@ def gitMergeDevelop() {
         env.ETAPA = 'GitMergeDevelop'
         figlet env.ETAPA
     }
+    
     def git = new GitMethods()
-    git.gitMerge('release-v1-0-0','develop')
+    git.gitMerge('release-v' + env.RELEASE_VERSION,'develop')
 }
 
 def gitTagMaster() {
@@ -97,9 +99,9 @@ def gitTagMaster() {
         figlet env.ETAPA
     }
     if (isUnix()) {
-        sh 'git tag -l "v1-0-0"'
+        sh "git tag -l " + env.RELEASE_VERSION
     } else {
-        bat 'git tag -l "v1-0-0"'
+        bat "git tag -l " + env.RELEASE_VERSION
     }
 }
 
