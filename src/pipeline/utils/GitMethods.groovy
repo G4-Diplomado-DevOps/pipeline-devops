@@ -40,5 +40,5 @@ def gitMerge(String branch_from, String branch_to) {
 	env.GIT_COMMITTER_EMAIL = 'guillermocorreamartinez@gmail.com'
 	sh "git checkout ${branch_to}"
     sh "git merge ${branch_from} --no-ff"
-    sh "git push"
+    sh "git push https://jibanez123456:jibanez74@github.com/G4-Diplomado-DevOps/ms-iclab.git"
 }
