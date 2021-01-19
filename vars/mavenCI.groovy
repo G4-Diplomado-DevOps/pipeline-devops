@@ -182,23 +182,18 @@ def call(){
     if(util.validateStage('gitCreateRelease') && success && env.GIT_BRANCH.contains('develop')) {
         stage('gitCreateRelease') {
             env.STAGE = STAGE_NAME
+            
+            def git = new GitMethods()
 
-            try {
-
-                def git = new GitMethods()
-
-                if (git.checkIfBranchExists('release-v' + env.RELEASE_VERSION)) {
-                    println "INFO: La rama existe"
-                    git.deleteBranch('release-v' + env.RELEASE_VERSION) 
-                    println "INFO: Rama eliminada"
-                    git.createBranch(env.GIT_BRANCH, 'release-v' + env.RELEASE_VERSION)
-                    println "INFO: Rama creada satisfactoriamente"
-                } else {
-                    git.createBranch(env.GIT_BRANCH, 'release-v' + env.RELEASE_VERSION)
-                    println "INFO: Rama creada satisfactoriamente"
-                }
-            } catch (Exception e) {
-                error "Error en stage "+STAGE_NAME
+            if (git.checkIfBranchExists('release-v' + env.RELEASE_VERSION)) {
+                println "INFO: La rama existe"
+                git.deleteBranch('release-v' + env.RELEASE_VERSION) 
+                println "INFO: Rama eliminada"
+                git.createBranch(env.GIT_BRANCH, 'release-v' + env.RELEASE_VERSION)
+                println "INFO: Rama creada satisfactoriamente"
+            } else {
+                git.createBranch(env.GIT_BRANCH, 'release-v' + env.RELEASE_VERSION)
+                println "INFO: Rama creada satisfactoriamente"
             }
 
         }
