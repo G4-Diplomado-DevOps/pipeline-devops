@@ -33,11 +33,12 @@ def gitDiff(){
                         figlet env.ETAPA
                 }
         echo "la variable GIT_BRANCH es env.GIT_BRANCH"
-         GBranch = sh ( script: " echo env.GIT_BRANCH| grep -Po 'release-v.-.-.'", returnStdout:true )
-         echo "la rama es "$Gbranch""                  
-        
-        if (env.GIT_BRANCH.contains('*release*')){
-
+        String str = env.GIT_BRANCH
+        String subStr=str.substring7);
+        echo "la rama es "{$subStr}""                  
+       
+//        if (env.GIT_BRANCH.contains('*release*')){
+        if (env.GIT_BRANCH.contains('release')){
             def git = new GitMethods()
 
             if (git.checkIfBranchExists('master')){
