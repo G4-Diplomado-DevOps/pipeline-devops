@@ -19,10 +19,10 @@ def call(){
  
         stages.each{
                 if (validador.isValidStage(it, params.stage)){       
-                        stages(it){
+                        stage(it){
                                 try{
                                         echo " pasando por stage ${it}"
-                                        //"{$it}"()
+                                        "{$it}"()
                                 } catch( Exception e){
                                         error "Stage ${it} tiene problemas : ${e}"
                                 }
