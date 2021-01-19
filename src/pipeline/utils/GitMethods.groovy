@@ -15,8 +15,8 @@ def checkIfBranchExists(String branch) {
 }
 
 def deleteBranch(String branch) {
-	sh 'git pull; git push origin --delete ' + branch
-	sh 'git branch -D ' + branch
+	sh "git pull; git push origin --delete " + branch
+	sh "git branch -D " + branch
 }
 
 
