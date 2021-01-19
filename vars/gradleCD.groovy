@@ -37,7 +37,8 @@ def gitDiff(){
 //        if (env.GIT_BRANCH.contains('*release*')){
         if ( env.RELV.contains('release-v1-0-0')){
             def git = new GitMethods()
-
+                env.RELEASE_VERSION2 = 'release-v' + params.releaseVersion
+                echo "release ${env.RELEASE_VERSION2}"
             if (git.checkIfBranchExists('master')){
                 echo "Rama existe"
                 git.diffBranch('master','release-v1-0-0')
