@@ -15,10 +15,6 @@ def call(){
 
     println "DEBUG: env.GIT_URL="+env.GIT_URL
 
-    def flow_name = "Integracion Continua"  
-
-    figlet flow_name
-
     tecnologhy = util.technologyType(repo_name)
 
     figlet tecnologhy
