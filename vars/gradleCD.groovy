@@ -35,7 +35,7 @@ def gitDiff(){
         echo "la variable GIT_BRANCH es env.GIT_BRANCH"
         String str = env.GIT_BRANCH
         String subStr=str.substring(7);
-        echo "la rama es "{$subStr}""                  
+        echo "la rama es ${subStr}"                  
        
 //        if (env.GIT_BRANCH.contains('*release*')){
         if (env.GIT_BRANCH.contains('release')){
