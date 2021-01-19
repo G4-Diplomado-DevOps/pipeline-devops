@@ -5,23 +5,17 @@ import pipeline.utils.GitMethods
 // def call(String choosenStages, String pipelineStages){
 def call(){
         def validador = new Validator()
-//Quizás leer un archivo con los stages en vez de tenerlos
-//        def pipelineStages = ['gitDiff';'nexusDownload';'run';'test';'gitMergeMaster';'gitDevelop';'gitTagMaster']
+        
         def stages = ['gitDiff','nexusDownload','runJar','test','gitMergeMaster','gitDevelop','gitTagMaster']
 
-        //    def validator = new Validator()
-//        def stages = validador.validateStage(choosenStages,pipelineStages )
-        //def stages = pipelineStages
-        
-        // Despliegue de sistema operativo desde donde se corre pipeline (Para definir sh o bat)
         def so = isUnix() ? 'Linux' : 'Windows'
         figlet so
  
         stages.each{
-                if (validador.validateStage("${it}")){       
-                        stages("${it}"){
+                if (validador.isValidStage(it, params.stage)){       
+                        stages(it){
                                 try{
-                                        "${it}"()
+                                        "$it"()
                                 } catch( Exception e){
                                         error "Stage ${it} tiene problemas : ${e}"
                                 }
