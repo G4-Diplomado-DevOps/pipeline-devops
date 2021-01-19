@@ -76,7 +76,7 @@ def gitMergeMaster() {
         figlet env.ETAPA
     }
     def git = new GitMethods()
-    git.gitMerge('release-v1-0-0','master')
+    git.gitMerge('release-v1-0-0','main')
 }
 
 def gitMergeDevelop() {
