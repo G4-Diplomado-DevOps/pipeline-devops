@@ -27,6 +27,7 @@ def createBranch(String origin, String newBranch){
 }
 
 def diffBranch(String origin, String master){
+	println "origen: ${origin} master : ${master}"
 	sh '''
 		git checkout """${origin}""" ; git pull
                 git fetch -p
@@ -62,7 +63,7 @@ def gitMerge(String origin, String master){
 
 def gitTagMaster(){
         sh 'git checkout ${master} ; git pull;git fetch -p'
-        def versionTag = sh ( script: " git reflog| grep -Po "release-v.-.-.", returnStdout:true )
+        def versionTag = sh ( script: " git reflog |sed -n 's/.*\\(release-v.-.-.*\\).*/\\1/p' ", returnStdout:true )
         sh 'git tag ${versionTag} -m "Primera versión"'
 	sh 'git push --tags'
 }
