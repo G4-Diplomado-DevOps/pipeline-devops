@@ -185,12 +185,7 @@ def call(){
 
             try {
 
-                // sh 'git config --global credential.helper cache'
-                // println "DEBUG: ejecutando git config"
-
                 def git = new GitMethods()
-
-                // version = "1-1-2"
 
                 if (git.checkIfBranchExists('release-v' + env.RELEASE_VERSION)) {
                     println "INFO: La rama existe"

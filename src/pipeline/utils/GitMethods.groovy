@@ -4,26 +4,13 @@ package pipeline.utils
 def checkIfBranchExists(String branch) {
 
 	def output = sh (script : "git pull ; git ls-remote --heads origin ${branch}", returnStdout: true)
-    def respuesta = (output?.trim().contains("refs/heads/${branch}")) ? true : false
-    return respuesta
-
-	/*
-  def var_outout = sh (script: "git pull; git ls-remote --heads origin ${branch}", returnStdout: true)
-
-  if (var_outout?.trim()) {
-  	return true
-  }
-  else {
-  	return false
-  }
-  */
-
+    def response = (output?.trim().contains("refs/heads/${branch}")) ? true : false
+    return response
 }
 
 def deleteBranch(String branch) {
 	sh "git pull ; git push origin --delete ${branch}; git branch -D ${branch}"
 }
-
 
 def createBranch(String origin, String newBranch) {
 	println "DEBUG: origin=" + origin
