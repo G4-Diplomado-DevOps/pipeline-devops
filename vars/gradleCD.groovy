@@ -38,7 +38,7 @@ def gitDiff(){
 
             if (git.checkIfBranchExists('master')){
                 echo "Rama existe"
-                git.diffMerge('master','release-v1-0-0')
+                git.diffBranch('master','release-v1-0-0')
             } else {
                                 echo "no existe master, verificar branch"
             }} else {
@@ -86,7 +86,7 @@ def gitMergeMaster() {
                         figlet env.ETAPA
                 }
                 def git = new GitMethods()
-                git.gitMerge('master','release-v1-0-0')
+                git.gitMerge('release-v1-0-0','master')
         }
 
 def gitMergeDevelop() {
@@ -95,7 +95,7 @@ def gitMergeDevelop() {
                         figlet env.ETAPA
                 }
                 def git = new GitMethods()
-                git.gitMerge('develop','release-v1-0-0')
+                git.gitMerge('release-v1-0-0','develop')
 
         }
 
