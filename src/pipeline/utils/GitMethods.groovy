@@ -4,7 +4,7 @@ package pipeline.utils
 def checkIfBranchExists(String branch) {
 
 	def output = sh (script : "git pull ; git ls-remote --heads origin ${branch}", returnStdout: true)
-    def respuesta = (output?.trim().contains("refs/heads/${rama}")) ? true : false
+    def respuesta = (output?.trim().contains("refs/heads/${branch}")) ? true : false
     return respuesta
 
 	/*
