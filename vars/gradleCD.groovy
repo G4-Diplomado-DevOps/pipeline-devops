@@ -73,10 +73,10 @@ def test() {
                 }
         if (isUnix()) {
                 sh 'sleep 20'
-                sh "curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
+                sh "curl -X GET 'http://localhost:8082/rest/mscovid/test?msg=testing'"
         } else {
                 bat 'sleep 20'
-                bat "curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
+                bat "curl -X GET 'http://localhost:8082/rest/mscovid/test?msg=testing'"
         }
 }
 
