@@ -35,9 +35,10 @@ def gitDiff(){
         String str = "${env.GIT_BRANCH}"
         String subStr=str.substring(7);
         echo "la rama es ${subStr}"                  
-       
+        sed -n 's/.*\(release-v.-.-.*\).*/\1/p'
+        relv = sh ( script: " echo ${GIT_BRANCH}|sed -n 's/.*\(release-v.-.-.*\).*/\1/p' ", returnStdout:true )
 //        if (env.GIT_BRANCH.contains('*release*')){
-        if (env.GIT_BRANCH.contains('release')){
+        if (env.GIT_BRANCH.contains('*.\(release-v1.-.-.\)')){
             def git = new GitMethods()
 
             if (git.checkIfBranchExists('master')){
@@ -46,7 +47,7 @@ def gitDiff(){
             } else {
                                 echo "no existe master, verificar branch"
             }} else {
-            echo "la rama ${env.GIT_BRANCH} no corresponde como rama release, no se puede hacer delivery ${subStr}"
+            echo "la rama ${env.GIT_BRANCH} no corresponde como rama release, no se puede hacer delivery ${relv}"
         }
         }
 
