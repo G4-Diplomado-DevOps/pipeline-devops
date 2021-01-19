@@ -26,7 +26,6 @@ def call(){
         }
  }
 
-
 def gitDiff(){
                 script {
                         env.ETAPA = 'GitDiff'
@@ -106,8 +105,11 @@ def gitTagMaster() {
         env.ETAPA = 'GitTagMaster'
         figlet env.ETAPA
     }
-    def git = new GitMethods()
-    git.tagMaster()
+    if (isUnix()) {
+        sh 'git tag -l "v1-0-0"'
+    } else {
+        bat 'git tag -l "v1-0-0"'
+    }
 }
 
 return this;
