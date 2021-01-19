@@ -82,7 +82,7 @@ def gitMergeMaster(master) {
                 git.gitMerge(env.GIT_BRANCH,'release-v1-0-0')
         }
 
-def gitMergeDevelop(env.GIT_BRANCH, develop) {
+def gitMergeDevelop(env.GIT_BRANCH,develop) {
                 script {
                         env.ETAPA = 'GitMergeDevelop'
                         figlet env.ETAPA
