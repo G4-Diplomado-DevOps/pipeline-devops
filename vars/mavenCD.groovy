@@ -39,15 +39,16 @@ def gitDiff(){
 
             if (git.chekIfBranchExists('master')){
                 echo "Rama existe"
-                git.diffBranch('master',env.GIT_BRANCH)
-            }else{
+                git.diffMerge('master',env.GIT_BRANCH)
+            } else {
                                 echo "no existe master, verificar branch"
-        }else{
+        } else {
             echo "la rama ${env.GIT_BRANCH} no corresponde como rama release, no se puede hacer delivery"
         }
         }
 }
-        def nexusDownload() {
+
+def nexusDownload() {
             script {
                         env.ETAPA = 'NexusDownload'
                         figlet env.ETAPA
@@ -55,7 +56,7 @@ def gitDiff(){
                 sh "curl -X GET -u admin:devops4 http://34.229.88.5:8085/repository/laboratorio-grupo-4/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"
     }
 
-        def run(){
+def run(){
                 script {
                         env.ETAPA = 'Run'
                         figlet env.ETAPA
@@ -63,7 +64,7 @@ def gitDiff(){
         sh 'nohup java -jar DevOpsUsach2020-0.0.1.jar &'
         }
 
-        def test() {
+def test() {
                 script {
                         env.ETAPA = 'Test'
                         figlet env.ETAPA
@@ -72,7 +73,7 @@ def gitDiff(){
                 sh "curl -X GET 'http://localhost:8082/rest/mscovid/test?msg=testing'"
         }
 
-        def gitMergeMaster('master') {
+def gitMergeMaster('master') {
                 script {
                         env.ETAPA = 'GitMergeMaster'
                         figlet env.ETAPA
@@ -81,7 +82,7 @@ def gitDiff(){
                 git.gitMerge(env.GIT_BRANCH,'release-v1-0-0')
         }
 
-        def gitMergeDevelop(env.GIT_BRANCH,'develop') {
+def gitMergeDevelop(env.GIT_BRANCH,'develop') {
                 script {
                         env.ETAPA = 'GitMergeDevelop'
                         figlet env.ETAPA
@@ -90,7 +91,7 @@ def gitDiff(){
 
         }
 
-        def gitTagMaster() {
+def gitTagMaster() {
                 script {
                         env.ETAPA = 'GitTagMaster'
                         figlet env.ETAPA
