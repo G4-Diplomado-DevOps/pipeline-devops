@@ -16,14 +16,12 @@ def createBranch(String origin, String newBranch) {
 
 	println "Creando rama ${newBranch} a partir de ${origin}"
 
-	/*
 	sh "git pull"
 	sh "git checkout ${origin}"
 	sh "git checkout -b ${newBranch}"
 	sh "git push origin ${newBranch}"
-	*/
 
-	
+	/*
 	println "DEBUG: origin=" + origin
 	println "DEBUG: newBranch=" + newBranch 
  
@@ -34,5 +32,6 @@ def createBranch(String origin, String newBranch) {
 	sh 'git push https://jibanez123456:jibanez74@github.com/G4-Diplomado-DevOps/ms-iclab.git'
 	
 	sh 'git checkout ' + origin
+	*/
 	
 }
