@@ -6,7 +6,7 @@ import pipeline.utils.GitMethods
 def call(){
         def validador = new Validator()
 //Quizás leer un archivo con los stages en vez de tenerlos
-//        def pipelineStages = ['gitDiff';'nexusDownload';'run';'test';'gitMergeMaster';'gitDevelop';'gitTagMaster']
+//        def pipelineStages = ['gitDiff';'nexusDownload';'runJar';'test';'gitMergeMaster';'gitDevelop';'gitTagMaster']
         def stages = ['gitDiff','nexusDownload','run','test','gitMergeMaster','gitDevelop','gitTagMaster']
 
         //    def validator = new Validator()
@@ -60,23 +60,30 @@ def nexusDownload() {
                 sh "curl -X GET -u admin:devops4 http://34.229.88.5:8085/repository/laboratorio-grupo-4/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"
     }
 
-def run() {
+def runJar() {
                 script {
                         env.ETAPA = 'Run'
                         figlet env.ETAPA
                 }
-//        sh 'nohup java -jar DevOpsUsach2020-0.0.1.jar &'
-        sh ''
+        if (isUnix()) {
+        sh 'nohup gradle boot Run &'
+        } else {
+        bat 'start gradle boot Run'
+        }
 }
-
 def test() {
                 script {
                         env.ETAPA = 'Test'
                         figlet env.ETAPA
                 }
+        if (isUnix()) {
                 sh 'sleep 20'
                 sh "curl -X GET 'http://localhost:8082/rest/mscovid/test?msg=testing'"
+        } else {
+                bat 'sleep 20'
+                bat "curl -X GET 'http://localhost:8082/rest/mscovid/test?msg=testing'"
         }
+}
 
 def gitMergeMaster() {
                 script {
