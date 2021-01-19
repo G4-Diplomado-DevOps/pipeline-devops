@@ -6,9 +6,9 @@ import pipeline.utils.GitMethods
 def call(){
         def validador = new Validator()
 //Quizás leer un archivo con los stages en vez de tenerlos
-//        def pipelineStages = "gitDiff;nexusDownload;run;test;gitMergeMaster;gitDevelop;gitTagMaster"
+        def pipelineStages = ['gitDiff','nexusDownload','run','test','gitMergeMaster','gitDevelop','gitTagMaster']
 //    def validator = new Validator()
-        def stages = validador.validateStage(choosenStages,pipelineStages )
+//        def stages = validador.validateStage(choosenStages,pipelineStages )
 //        def stages = validador.isValidStage(choosenStages)
         flow_name = validador.getNameFlow(branch_name)
 
@@ -18,7 +18,9 @@ def call(){
         stages.each{
                 stages(it){
                         try{
-                                "${it}"()
+                                if (validador.validateStage(it)){       
+                                        "${it}"()
+                                }
                         } catch( Exception e){
                                 error "Stage ${it} tiene problemas : ${e}"
                         }
