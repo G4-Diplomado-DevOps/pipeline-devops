@@ -38,14 +38,14 @@ def gitDiff(){
         if ( env.RELV.contains('release-v1-0-0')){
             def git = new GitMethods()
                 env.RELEASE_VERSION2 = 'release-v' + params.releaseVersion
-                echo "release ${env.RELEASE_VERSION2}"
+                println "release ${env.RELEASE_VERSION2}"
             if (git.checkIfBranchExists('master')){
-                echo "Rama existe"
+                println "Rama existe"
                 git.diffBranch('master','release-v1-0-0')
             } else {
-                                echo "no existe master, verificar branch"
+                                println "no existe master, verificar branch"
             }} else {
-            echo "la rama ${env.GIT_BRANCH} no corresponde como rama release, no se puede hacer delivery ${env.RELV} echo ${env.RELEASE_VERSION}"
+            println "la rama ${env.GIT_BRANCH} no corresponde como rama release, no se puede hacer delivery ${env.RELV} echo ${env.RELEASE_VERSION}"
         }
         }
 
