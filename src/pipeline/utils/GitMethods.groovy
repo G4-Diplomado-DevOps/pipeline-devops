@@ -13,6 +13,14 @@ def deleteBranch(String branch) {
 }
 
 def createBranch(String origin, String newBranch) {
+
+    def output =  sh (script :"git reset --hard HEAD" , returnStdout: true)
+    output =  sh (script :"git pull" , returnStdout: true)
+    output =  sh (script :"git checkout ${origin}" , returnStdout: true)
+    output =  sh (script :"git checkout -b ${newBranch}" , returnStdout: true)
+    output =  sh (script :"git push origin ${newBranch}" , returnStdout: true)
+
+	/*
 	println "DEBUG: origin=" + origin
 	println "DEBUG: newBranch=" + newBranch 
  
@@ -23,4 +31,5 @@ def createBranch(String origin, String newBranch) {
 	sh 'git push https://jibanez123456:jibanez74@github.com/G4-Diplomado-DevOps/ms-iclab.git'
 	
 	sh 'git checkout ' + origin
+	*/
 }
