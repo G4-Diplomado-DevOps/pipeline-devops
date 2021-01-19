@@ -47,15 +47,15 @@ def call(){
 				figlet "Integración Continua"
                                 gradleCI.call();
                             } else {
-				figlet "Entrega Continua"
+				figlet "Integración Continua"
                                 mavenCI.call();
                             }
 
                         } else if(env.GIT_BRANCH.contains('release')) {
                             
                             if (params.TOOL == 'gradle'){
-				figlet "Integración Continua"
-                                gradleCI.call();
+				figlet "Entrega Continua"
+                                gradleCD.call();
                             } else {
 				figlet "Entrega Continua"
                                 mavenCD.call();
