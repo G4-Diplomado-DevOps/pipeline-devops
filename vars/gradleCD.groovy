@@ -39,9 +39,9 @@ def gitDiff(){
                
                 println "release ${env.RELEASE_VERSION2}"
             def git = new GitMethods()
-            if (git.checkIfBranchExists(env.RELEASE_VERSION2)){
+            if (git.checkIfBranchExists('origin/'+env.RELEASE_VERSION2)){
                 println "Rama existe"
-                git.diffBranch('master',env.RELEASE_VERSION2)
+                git.diffBranch('master','origin/+'env.RELEASE_VERSION2)
             } else {
                                 println "no existe ${env.RELEASE_VERSION2}, verificar branch"
             }} else {
