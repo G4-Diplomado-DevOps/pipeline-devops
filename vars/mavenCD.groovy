@@ -46,7 +46,7 @@ def gitDiff(){
             echo "la rama ${env.GIT_BRANCH} no corresponde como rama release, no se puede hacer delivery"
         }
         }
-}
+
 
 def nexusDownload() {
             script {
