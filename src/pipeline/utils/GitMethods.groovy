@@ -3,8 +3,6 @@ package pipeline.utils
 
 def checkIfBranchExists(String branch) {
 
-	sh 'git config --global url."git@github.com:".insteadOf "https://github.com/"'
-	
 	def output = sh (script : "git pull ; git ls-remote --heads origin ${branch}", returnStdout: true)
     def response = (output?.trim().contains("refs/heads/${branch}")) ? true : false
     return response
