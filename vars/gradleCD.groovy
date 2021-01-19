@@ -6,7 +6,7 @@ import pipeline.utils.GitMethods
 def call(){
     def validador = new Validator()
 
-    def stages = ['gitDiff','nexusDownload','runJar','test','gitMergeMaster','gitDevelop','gitTagMaster']
+    def stages = ['gitDiff','nexusDownload','runJar','test','gitMergeMaster','gitMergeDevelop','gitTagMaster']
 
     def so = isUnix() ? 'Linux' : 'Windows'
     figlet so
