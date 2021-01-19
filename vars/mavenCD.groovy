@@ -6,9 +6,9 @@ import pipeline.utils.GitMethods
 
         def utils = new Validator()
 //Quizás leer un archivo con los stages en vez de tenerlos
-        def pipeline = ['gitDiff','nexusDownload','run','test','gitMergeMaster','gitDevelop','gitTagMaster']
+        def pipelineStages = ['gitDiff','nexusDownload','run','test','gitMergeMaster','gitDevelop','gitTagMaster']
 //    def validator = new Validator()
-        def stages = utils.getValidateStages(choosenStages, pipelineStages)
+        def stages = utils.isValidStage(choosenStages, pipelineStages)
 
 
         flow_name = validator.getNameFlow(branch_name)
