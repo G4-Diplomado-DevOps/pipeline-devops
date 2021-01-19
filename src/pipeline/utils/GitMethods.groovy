@@ -14,6 +14,8 @@ def deleteBranch(String branch) {
 
 def createBranch(String origin, String newBranch) {
 
+	println "Creando rama ${newBranch} a partir de ${origin}"
+
     def output =  sh (script :"git reset --hard HEAD" , returnStdout: true)
     output =  sh (script :"git pull" , returnStdout: true)
     output =  sh (script :"git checkout ${origin}" , returnStdout: true)
