@@ -34,3 +34,9 @@ def createBranch(String origin, String newBranch) {
 	sh 'git checkout ' + origin
 	
 }
+
+def gitMerge(branch_from, branch_to) {
+	sh "git checkout ${branch_to}"
+    sh "git merge ${branch_from} --no-ff"
+    sh "git push"
+}

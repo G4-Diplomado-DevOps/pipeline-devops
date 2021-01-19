@@ -84,33 +84,30 @@ def test() {
 }
 
 def gitMergeMaster() {
-                script {
-                        env.ETAPA = 'GitMergeMaster'
-                        figlet env.ETAPA
-                }
-                def git = new GitMethods()
-                git.gitMerge('release-v1-0-0','master')
-        }
+    script {
+        env.ETAPA = 'GitMergeMaster'
+        figlet env.ETAPA
+    }
+    def git = new GitMethods()
+    git.gitMerge('release-v1-0-0','master')
+}
 
 def gitMergeDevelop() {
-                script {
-                        env.ETAPA = 'GitMergeDevelop'
-                        figlet env.ETAPA
-                }
-                def git = new GitMethods()
-                git.gitMerge('release-v1-0-0','develop')
-
-        }
+    script {
+        env.ETAPA = 'GitMergeDevelop'
+        figlet env.ETAPA
+    }
+    def git = new GitMethods()
+    git.gitMerge('release-v1-0-0','develop')
+}
 
 def gitTagMaster() {
-                script {
-                        env.ETAPA = 'GitTagMaster'
-                        figlet env.ETAPA
-                }
-                def git = new GitMethods()
-                git.gitTagMaster()
-        }
-
-
+    script {
+        env.ETAPA = 'GitTagMaster'
+        figlet env.ETAPA
+    }
+    def git = new GitMethods()
+    git.tagMaster()
+}
 
 return this;
