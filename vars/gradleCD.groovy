@@ -5,15 +5,9 @@ import pipeline.utils.GitMethods
 // def call(String choosenStages, String pipelineStages){
 def call(){
         def validador = new Validator()
-//Quizás leer un archivo con los stages en vez de tenerlos
-//        def pipelineStages = ['gitDiff';'nexusDownload';'runJar';'test';'gitMergeMaster';'gitDevelop';'gitTagMaster']
+
         def stages = ['gitDiff','nexusDownload','runJar','test','gitMergeMaster','gitDevelop','gitTagMaster']
 
-        //    def validator = new Validator()
-//        def stages = validador.validateStage(choosenStages,pipelineStages )
-        //def stages = pipelineStages
-        
-        // Despliegue de sistema operativo desde donde se corre pipeline (Para definir sh o bat)
         def so = isUnix() ? 'Linux' : 'Windows'
         figlet so
  
@@ -21,7 +15,6 @@ def call(){
                 if (validador.isValidStage(it, params.stage)){       
                         stage(it){
                                 try{
-                                        echo " pasando por stage ${it}"
                                         "$it"()
                                 } catch( Exception e){
                                         error "Stage ${it} tiene problemas : ${e}"
@@ -68,7 +61,7 @@ def runJar() {
                         figlet env.ETAPA
                 }
         if (isUnix()) {
-        sh 'nohup gradle boot Run &'
+        sh 'nohup java -jar DevOpsUsach2020-0.0.1.jar &'
         } else {
         bat 'start gradle boot Run'
         }
