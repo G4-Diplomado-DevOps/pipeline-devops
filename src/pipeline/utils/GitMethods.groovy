@@ -16,11 +16,10 @@ def createBranch(String origin, String newBranch) {
 
 	println "Creando rama ${newBranch} a partir de ${origin}"
 
-    def output =  sh (script :"git reset --hard HEAD" , returnStdout: true)
-    output =  sh (script :"git pull" , returnStdout: true)
-    output =  sh (script :"git checkout ${origin}" , returnStdout: true)
-    output =  sh (script :"git checkout -b ${newBranch}" , returnStdout: true)
-    output =  sh (script :"git push origin ${newBranch}" , returnStdout: true)
+	sh "git pull"
+	sh "git checkout ${origin}"
+	sh "git checkout -b ${newBranch}"
+	sh "git push origin ${newBranch}"
 
 	/*
 	println "DEBUG: origin=" + origin
