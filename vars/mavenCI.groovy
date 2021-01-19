@@ -180,6 +180,10 @@ def call(){
             env.STAGE = STAGE_NAME
 
             try {
+
+                sh 'git config --global credential.helper cache'
+                println "DEBUG: ejecutando git config"
+                
                 def git = new GitMethods()
 
                 // version = "1-1-2"
