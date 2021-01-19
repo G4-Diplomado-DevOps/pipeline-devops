@@ -31,12 +31,20 @@ def call(){
     else {
         figlet "Tool Maven NO Validada"
     }
+
+    if (util.isValidReleaseVersion(env.RELEASE_VERSION)) {
+            figlet "version validada=" + env.RELEASE_VERSION
+    }
+    else {
+        error "ERROR: version invalida" + env.RELEASE_VERSION
+    }
+
     
 
     // Despliegue de sistema operativo desde donde se corre pipeline (Para definir sh o bat)
     def so = isUnix() ? 'Linux' : 'Windows'
     figlet so
-
+ 
     // En el primer step no se verifica el boolean success ya que es el primer step
     if(util.validateStage('compile'))
     {
@@ -183,7 +191,7 @@ def call(){
 
                 sh 'git config --global credential.helper cache'
                 println "DEBUG: ejecutando git config"
-                
+
                 def git = new GitMethods()
 
                 // version = "1-1-2"
