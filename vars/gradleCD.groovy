@@ -33,9 +33,9 @@ def gitDiff(){
                         figlet env.ETAPA
                 }
                 
-        relv = sh ( script: " echo ${GIT_BRANCH}|sed -n 's/.*\\(release-v.-.-.*\\).*/\\1/p' ", returnStdout:true )
+        env.RELV = sh ( script: " echo ${GIT_BRANCH}|sed -n 's/.*\\(release-v.-.-.*\\).*/\\1/p' ", returnStdout:true )
 //        if (env.GIT_BRANCH.contains('*release*')){
-        if ( ${relv} == 'release-v1-0-0' ){
+        if ( env.RELV == 'release-v1-0-0' ){
             def git = new GitMethods()
 
             if (git.checkIfBranchExists('master')){
@@ -44,7 +44,7 @@ def gitDiff(){
             } else {
                                 echo "no existe master, verificar branch"
             }} else {
-            echo "la rama ${env.GIT_BRANCH} no corresponde como rama release, no se puede hacer delivery ${relv}"
+            echo "la rama ${env.GIT_BRANCH} no corresponde como rama release, no se puede hacer delivery ${env.RELV}"
         }
         }
 
