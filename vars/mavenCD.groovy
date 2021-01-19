@@ -6,10 +6,12 @@ import pipeline.utils.GitMethods
 def call(){
         def validador = new Validator()
 //Quizás leer un archivo con los stages en vez de tenerlos
-        def pipelineStages = ['gitDiff','nexusDownload','run','test','gitMergeMaster','gitDevelop','gitTagMaster']
-//    def validator = new Validator()
+//        def pipelineStages = ['gitDiff';'nexusDownload';'run';'test';'gitMergeMaster';'gitDevelop';'gitTagMaster']
+        def stages = ['gitDiff','nexusDownload','run','test','gitMergeMaster','gitDevelop','gitTagMaster']
+
+        //    def validator = new Validator()
 //        def stages = validador.validateStage(choosenStages,pipelineStages )
-        def stages = pipelineStages
+        //def stages = pipelineStages
         
         // Despliegue de sistema operativo desde donde se corre pipeline (Para definir sh o bat)
         def so = isUnix() ? 'Linux' : 'Windows'
