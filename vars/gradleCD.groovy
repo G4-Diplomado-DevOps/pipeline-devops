@@ -18,7 +18,7 @@ def call(){
         figlet so
  
         stages.each{
-                if (validador.sValidStage("${it}", params.stage)){       
+                if (validador.isValidStage("${it}", params.stage)){       
                         stages("${it}"){
                                 try{
                                         echo " pasando por stage ${it}"
