@@ -32,8 +32,7 @@ def gitDiff(){
                         env.ETAPA = 'GitDiff'
                         figlet env.ETAPA
                 }
-        echo "la variable GIT_BRANCH es env.GIT_BRANCH"
-        String str = env.GIT_BRANCH
+        String str = "${env.GIT_BRANCH}"
         String subStr=str.substring(7);
         echo "la rama es ${subStr}"                  
        
@@ -47,7 +46,7 @@ def gitDiff(){
             } else {
                                 echo "no existe master, verificar branch"
             }} else {
-            echo "la rama ${env.GIT_BRANCH} no corresponde como rama release, no se puede hacer delivery"
+            echo "la rama ${env.GIT_BRANCH} no corresponde como rama release, no se puede hacer delivery ${subStr}"
         }
         }
 
