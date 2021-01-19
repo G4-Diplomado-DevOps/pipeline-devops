@@ -41,7 +41,7 @@ def gitDiff(){
             def git = new GitMethods()
             if (git.checkIfBranchExists(env.RELEASE_VERSION3)){
                 println "Rama existe"
-                git.diffBranch('master',env.RELEASE_VERSION3)
+                git.diffBranch(env.RELEASE_VERSION3,'master')
             } else {
                                 println "no existe ${env.RELEASE_VERSION2}, verificar branch"
             }} else {
