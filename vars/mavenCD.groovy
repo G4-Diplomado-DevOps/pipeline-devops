@@ -31,7 +31,7 @@ import pipeline.utils.GitMethods
 def createRelease(){
 	if (env.GIT_BRANCH.contains('develop')){
 
-		del git = new git.GitMethods()
+		def git = new git.GitMethods()
 
 		if (git.chekIfBranchExists('release-v1-0-0')){
 			echo "Rama existe"
@@ -61,7 +61,7 @@ def createRelease(){
 // Flujo CD
 //        echo "Inicio CDmaven.goovy"
 //	for (int i = 0 ; i < cstage.length; i++){
-                        echo " ejecucion de for para ${cstage[i]}"
+//                        echo " ejecucion de for para ${cstage[i]}"
 //	switch("${cstage[i]}"){
 //	case: "gitDiff"
 
