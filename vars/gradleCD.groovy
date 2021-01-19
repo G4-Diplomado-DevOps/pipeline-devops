@@ -31,9 +31,10 @@ def call(){
 
                         }
                         
-                }
-         else { 
+                } else { 
                 echo "stage  ${it} ERROR"
+        
+                }
         }
  }
 
