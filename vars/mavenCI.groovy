@@ -192,9 +192,6 @@ def call(){
                 // sh 'git config --global credential.helper cache'
                 // println "DEBUG: ejecutando git config"
 
-                sh 'git config user.name test'
-                sh 'git config user.email test@devops.com'
-
                 def git = new GitMethods()
 
                 // version = "1-1-2"
