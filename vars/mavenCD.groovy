@@ -4,7 +4,7 @@ import pipeline.utils.GitMethods
 //def call(stage_param, branch_name){
  def call(String choosenStages){
 
-        def utils = new test.UtilMethods()
+        def utils = new Validator()
 //Quizás leer un archivo con los stages en vez de tenerlos
         def pipeline = (utils.isCIorCD().contains(ci)) ? ['compile','unitTest','jar','sonar','nexusUpload','gitCreateRelease'] : ['gitDiff','nexusDownload','run','test','gitMergeMaster','gitDevelop','gitTagMaster']
 //    def validator = new Validator()
@@ -78,7 +78,7 @@ def gitMergeMaster() {
                         env.ETAPA = 'GitMergeMaster'
                         figlet env.ETAPA
                 }
-                def git = new git.GitMethods()
+                def git = new GitMethods()
                 git.gitMerge('master','release-v1-0-0')
         }
 
@@ -87,6 +87,7 @@ def gitMergeDevelop() {
                         env.ETAPA = 'GitMergeDevelop'
                         figlet env.ETAPA
                 }
+                def git = new GitMethods()
                 git.gitMerge('develop','release-v1-0-0')
 
         }
@@ -96,6 +97,7 @@ def gitTagMaster() {
                         env.ETAPA = 'GitTagMaster'
                         figlet env.ETAPA
                 }
+                def git = new GitMethods()
                 git.gitTagMaster()
         }
 
