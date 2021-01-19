@@ -21,8 +21,9 @@ def call(){
                 echo "recorre stages"
                 if (validador.validateStage("${it}")){       
                         stages("${it}"){
+                                        echo " pasando por stage ${it}"
                                 try{
-                                        "${it}"()
+                                        ${it}()
                                 } catch( Exception e){
                                         error "Stage ${it} tiene problemas : ${e}"
                                 }
