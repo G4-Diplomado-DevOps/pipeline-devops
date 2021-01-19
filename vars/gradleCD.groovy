@@ -98,11 +98,11 @@ def gitTagMaster() {
     if (isUnix()) {
         sh "git checkout main" 
         sh "git tag -l " + env.RELEASE_VERSION
-        sh "git push origin --tags"
+        sh "git push https://jibanez123456:jibanez74@github.com/G4-Diplomado-DevOps/ms-iclab.git --tags"
     } else {
         bat "git checkout main" 
         bat "git tag -l " + env.RELEASE_VERSION
-        bat "git push origin --tags"
+        bat "git push https://jibanez123456:jibanez74@github.com/G4-Diplomado-DevOps/ms-iclab.git --tags"
     }
 }
 
