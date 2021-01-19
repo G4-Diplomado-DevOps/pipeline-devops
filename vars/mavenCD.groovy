@@ -7,7 +7,7 @@ def call(){
         def validador = new Validator()
 //Quizás leer un archivo con los stages en vez de tenerlos
 //        def pipelineStages = ['gitDiff';'nexusDownload';'run';'test';'gitMergeMaster';'gitDevelop';'gitTagMaster']
-        def stages = ['gitDiff','nexusDownload','run','test','gitMergeMaster','gitDevelop','gitTagMaster']
+        def stages = ['gitDiff','nexusDownload','runJar','test','gitMergeMaster','gitDevelop','gitTagMaster']
 
         //    def validator = new Validator()
 //        def stages = validador.validateStage(choosenStages,pipelineStages )
@@ -60,7 +60,7 @@ def nexusDownload() {
                 sh "curl -X GET -u admin:devops4 http://34.229.88.5:8085/repository/laboratorio-grupo-4/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"
     }
 
-def run() {
+def runJar() {
                 script {
                         env.ETAPA = 'Run'
                         figlet env.ETAPA
