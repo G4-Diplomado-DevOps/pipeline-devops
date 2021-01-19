@@ -23,7 +23,7 @@ def call(){
 
             try {
                 if (isUnix()) {
-                    sh "gradlew clean build"
+                    sh "./gradlew clean build"
                 } else {
                     bat "gradlew clean build"
                 }
@@ -46,7 +46,7 @@ def call(){
 
             try {
                 if (isUnix()) {
-                    sh "nohup bash gradle bootRun &"
+                    sh "nohup bash gradlew bootRun &"
                 } else {
                     bat 'start /B gradle bootRun'
                 }
