@@ -13,7 +13,7 @@ def call(){
  
         stages.each{
                 if (validador.isValidStage(it, params.stage)){       
-                        stages(it){
+                        stage(it){
                                 try{
                                         "$it"()
                                 } catch( Exception e){
