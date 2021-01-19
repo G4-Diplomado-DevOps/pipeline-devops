@@ -18,15 +18,15 @@ def call(){
         figlet so
  
         stages.each{
-                stages(it){
-                        try{
-                                if (validador.validateStage(it)){       
+                if (validador.validateStage("${it}")){       
+                        stages("${it}"){
+                                try{
                                         "${it}"()
+                                } catch( Exception e){
+                                        error "Stage ${it} tiene problemas : ${e}"
                                 }
-                        } catch( Exception e){
-                                error "Stage ${it} tiene problemas : ${e}"
-                        }
 
+                        }
                 }
         }
  }
