@@ -44,7 +44,7 @@ def gitDiff(){
             } else {
                                 echo "no existe master, verificar branch"
             }} else {
-            echo "la rama ${env.GIT_BRANCH} no corresponde como rama release, no se puede hacer delivery ${env.RELV}"
+            echo "la rama ${env.GIT_BRANCH} no corresponde como rama release, no se puede hacer delivery ${env.RELV} echo ${env.RELEASE_VERSION}"
         }
         }
 
