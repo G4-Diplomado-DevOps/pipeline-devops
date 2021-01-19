@@ -35,7 +35,7 @@ def gitDiff(){
                 
         relv = sh ( script: " echo ${GIT_BRANCH}|sed -n 's/.*\\(release-v.-.-.*\\).*/\\1/p' ", returnStdout:true )
 //        if (env.GIT_BRANCH.contains('*release*')){
-        if ( relv == 'release-v1-0-0' ){
+        if ( ${relv} == 'release-v1-0-0' ){
             def git = new GitMethods()
 
             if (git.checkIfBranchExists('master')){
