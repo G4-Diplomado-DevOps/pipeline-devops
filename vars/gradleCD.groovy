@@ -76,7 +76,7 @@ def gitMergeMaster() {
         figlet env.ETAPA
     }
     def git = new GitMethods()
-    git.gitMerge('release-v1-0-0','main')
+    git.gitMerge(env.RELEASE_VERSION,'main')
 }
 
 def gitMergeDevelop() {
@@ -85,7 +85,7 @@ def gitMergeDevelop() {
         figlet env.ETAPA
     }
     def git = new GitMethods()
-    git.gitMerge('release-v1-0-0','develop')
+    git.gitMerge(env.RELEASE_VERSION,'develop')
 }
 
 def gitTagMaster() {
