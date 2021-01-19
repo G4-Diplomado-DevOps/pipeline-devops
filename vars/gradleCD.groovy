@@ -36,12 +36,12 @@ def gitDiff(){
         env.RELV = sh ( script: " echo ${GIT_BRANCH}|sed -n 's/.*\\(release-v.-.-.*\\).*/\\1/p' ", returnStdout:true )
 //        if (env.GIT_BRANCH.contains('*release*')){
         if ( env.RELEASE_VERSION2.contains('release-v')){
-               
+               env.RELEASE_VERSION3 = 'origin/' + env.RELEASE_VERSION2
                 println "release ${env.RELEASE_VERSION2}"
             def git = new GitMethods()
-            if (git.checkIfBranchExists('origin/'+env.RELEASE_VERSION2)){
+            if (git.checkIfBranchExists(env.RELEASE_VERSION3)){
                 println "Rama existe"
-                git.diffBranch('master','origin/+'env.RELEASE_VERSION2)
+                git.diffBranch('master',env.RELEASE_VERSION3)
             } else {
                                 println "no existe ${env.RELEASE_VERSION2}, verificar branch"
             }} else {
