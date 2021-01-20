@@ -16,8 +16,10 @@ def call(){
             stage(it){
                 try{
                     "$it"()
+                    env.STAGE = env.ETAPA
                 } catch (Exception e){
                     error "Stage ${it} tiene problemas : ${e}"
+                     env.STAGE = env.ETAPA
                 }
             }
         }
